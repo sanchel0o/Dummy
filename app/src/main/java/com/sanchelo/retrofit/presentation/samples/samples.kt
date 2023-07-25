@@ -1,13 +1,9 @@
-package com.sanchelo.retrofit
+package com.sanchelo.retrofit.presentation.samples
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -24,14 +20,14 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.BottomCenter
-import androidx.compose.ui.Alignment.Companion.Center
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusOrder
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -42,41 +38,14 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.sanchelo.retrofit.remote.MainAPI
-import com.sanchelo.retrofit.ui.theme.RetrofitTheme
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+@Composable
+@Preview
+fun ProductsList() {
+    val itemsList = (0..5).toList()
 
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
-
-        val client = OkHttpClient
-            .Builder()
-            .addInterceptor(interceptor)
-            .build()
-
-        val retrofit = Retrofit
-            .Builder()
-            .baseUrl("https://dummyjson.com/").client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val mainAPI = retrofit.create(MainAPI::class.java)
-
-        setContent {
-            RetrofitTheme {
-
-            }
-        }
-    }
+    Text(text = "Hello there")
 }
-
 
 @Composable
 //@Preview(showBackground = true)
@@ -85,26 +54,32 @@ fun Login() {
     val focusManager = LocalFocusManager.current
 
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .navigationBarsPadding(),
-        contentAlignment = BottomCenter,
+        contentAlignment = Alignment.Center,
 
         ) {
+
         Column(
             modifier = Modifier,
             verticalArrangement = Arrangement.spacedBy(
                 space = 16.dp,
                 alignment = Alignment.Bottom
             ),
-            horizontalAlignment = CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            TextInput(InputType.Name,
+            TextInput(
+                InputType.Name,
                 keyboardActions = KeyboardActions(onNext = {
-                passwordFocusRequester.requestFocus()
-            }))
-            TextInput(InputType.Password, keyboardActions = KeyboardActions(onDone = {
-                focusManager.clearFocus()
-            }), focusRequester = passwordFocusRequester)
+                    passwordFocusRequester.requestFocus()
+                })
+            )
+            TextInput(
+                InputType.Password,
+                keyboardActions = KeyboardActions(
+                    onDone = { focusManager.clearFocus()}),
+                focusRequester = passwordFocusRequester)
             Button(
                 modifier = Modifier,
                 onClick = { /*TODO*/ }
@@ -114,9 +89,9 @@ fun Login() {
             }
 
             Divider(
-                color = Color.White.copy(0.3f),
+                color = Color.Gray.copy(0.3f),
                 thickness = 1.dp,
-                modifier = Modifier.padding(top = 30.dp, start = 15.dp, end = 15.dp)
+                modifier = Modifier.padding(top = 30.dp, start = 30.dp, end = 30.dp)
             )
 
             Row(

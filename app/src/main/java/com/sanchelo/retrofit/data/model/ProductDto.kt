@@ -1,6 +1,6 @@
-package com.sanchelo.retrofit.remote
+package com.sanchelo.retrofit.data.model
 
-data class SingleProductDto(
+data class ProductDto(
     val brand: String,
     val category: String,
     val description: String,

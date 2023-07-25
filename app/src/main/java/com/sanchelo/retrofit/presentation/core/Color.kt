@@ -1,4 +1,4 @@
-package com.sanchelo.retrofit.ui.theme
+package com.sanchelo.retrofit.presentation.core
 
 import androidx.compose.ui.graphics.Color
 
