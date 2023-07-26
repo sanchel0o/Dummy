@@ -1,6 +1,5 @@
 package com.sanchelo.retrofit.presentation.product_list_screen.screen
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,16 +23,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
 import com.sanchelo.retrofit.presentation.product_list_screen.mvi.ProductListScreenViewModel
 
 @Composable
-//@Preview(showBackground = true)
 fun ProductListScreen() {
     val viewModel: ProductListScreenViewModel = hiltViewModel()
 }
@@ -91,7 +91,7 @@ fun Toolbar() {
         modifier = Modifier
             .height(60.dp)
             .fillMaxWidth()
-            .background(Color.White)
+            .background(Color.White),
     ) {
         Text(text = "Toolbar")
     }
@@ -99,11 +99,11 @@ fun Toolbar() {
 
 @Composable
 fun ImageHeader() {
-    Image(
+    AsyncImage(
         modifier = Modifier.size(100.dp),
         contentScale = ContentScale.Fit,
-        painter = painterResource(id = androidx.core.R.drawable.ic_call_decline),
-        contentDescription = ""
+        model = "https://example.com/image.jpg",
+        contentDescription = "Product Image"
     )
 }
 
@@ -143,15 +143,26 @@ fun BottomBlock() {
             Text(
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
-                text = "899 $"
+                text = "737 $"
             )
-            Text(
-                modifier = Modifier
-                    .padding(start = 5.dp),
-                fontSize = 15.sp,
-                fontWeight = FontWeight.ExtraLight,
-                text = "-17.94 %"
-            )
+            Column(
+                Modifier.padding(5.dp)
+            ) {
+                Text(
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.ExtraLight,
+                    text = "-18 %"
+                )
+                Text(
+                    style = TextStyle(
+                        textDecoration = TextDecoration.LineThrough,
+                        color = Color.Gray,
+                        fontWeight = FontWeight.Bold
+                    ),
+                    text = " 899 $"
+                )
+            }
+
         }
         Row() {
             AddToFavouritesButton()
@@ -181,7 +192,7 @@ fun AddToFavouritesButton() {
 }
 
 @Composable
-@Preview
+@Preview(showBackground = true)
 private fun ProductListPreview() {
     ProductList()
 }
