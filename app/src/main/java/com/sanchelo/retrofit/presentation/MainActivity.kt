@@ -22,6 +22,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        viewModel.getData()
+
         setContent {
             RetrofitTheme {
                 //ProductListScreen()
@@ -35,6 +37,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Home(
+    //viewModel: ProductScreenListViewModel = hiltViewModel()
 ) {
     Box(
         modifier = Modifier

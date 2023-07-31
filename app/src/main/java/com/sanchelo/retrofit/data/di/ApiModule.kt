@@ -21,7 +21,7 @@ object ApiModule {
     @Singleton //How many of these dependencies we have. Singleton for a single instance for the whole lifetime of App
     fun provideMainApi(client: OkHttpClient): ProductsAPI {
         return Retrofit.Builder()
-            .baseUrl("https://dummyjson.com/")
+            .baseUrl("https://dummyjson.com")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
