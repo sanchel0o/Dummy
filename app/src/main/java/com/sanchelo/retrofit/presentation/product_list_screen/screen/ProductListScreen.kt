@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -29,17 +28,22 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
-import com.sanchelo.retrofit.presentation.product_list_screen.mvi.ProductListScreenViewModel
 
 @Composable
-fun ProductListScreen() {
-    val viewModel: ProductListScreenViewModel = hiltViewModel()
+fun ProductListScreen(
+
+) {
+    //val activity = LocalContext.current as Activity
+    //val viewModel: ProductListScreenViewModel = hiltViewModel()
+    //val state by viewModel.collectAsStateWithLifecycle()
 }
 
 @Composable
-fun ProductList() {
+fun ProductList(
+    //state: ProductListScreenState,
+
+) {
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
@@ -81,19 +85,6 @@ fun ProductCard() {
                 BottomBlock()
             }
         }
-    }
-}
-
-@Composable
-@Preview
-fun Toolbar() {
-    Row(
-        modifier = Modifier
-            .height(60.dp)
-            .fillMaxWidth()
-            .background(Color.White),
-    ) {
-        Text(text = "Toolbar")
     }
 }
 
