@@ -3,39 +3,43 @@ package com.sanchelo.retrofit.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.ui.graphics.Color
 import com.sanchelo.retrofit.presentation.core.RetrofitTheme
-import com.sanchelo.retrofit.presentation.product_list_screen.mvvm.CountDownViewModel
+import com.sanchelo.retrofit.presentation.product_list_screen.mvvm.ProductScreenListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint //if we have dependencies in android component class
 class MainActivity : ComponentActivity() {
 
-       override fun onCreate(savedInstanceState: Bundle?) {
+    private val viewModel: ProductScreenListViewModel by viewModels()
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             RetrofitTheme {
                 //ProductListScreen()
-                val viewModel = viewModel<CountDownViewModel>()
-                val count = viewModel.stateFlow.collectAsState(0)
-                Box(
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    Button(onClick = { viewModel.incrementCounter() }) {
-                        Text(text = "Counter ${count.value}")
-                    }
-                }
+                Home()
+
+
             }
         }
     }
 }
+
+@Composable
+fun Home(
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.DarkGray)
+    )
+}
+
