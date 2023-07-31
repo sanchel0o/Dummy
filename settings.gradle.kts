@@ -12,5 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "retrofit"
-include ':app'
+
+rootProject.name = "Temp"
+include(":app")
