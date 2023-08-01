@@ -1,7 +1,7 @@
 package com.sanchelo.retrofit.data.repository
 
 import com.sanchelo.retrofit.data.api.ProductsAPI
-import com.sanchelo.retrofit.data.mappers.toProductsData
+import com.sanchelo.retrofit.data.mappers.toProductDataList
 import com.sanchelo.retrofit.domain.model.ProductData
 import com.sanchelo.retrofit.domain.repository.ProductsRepository
 import javax.inject.Inject
@@ -11,5 +11,5 @@ class ProductsRepositoryImpl @Inject constructor(
 ) : ProductsRepository {
 
     override suspend fun getProductsData(): List<ProductData> =
-        api.getAllProducts().toProductsData()
+        api.getAllProducts().toProductDataList()
 }

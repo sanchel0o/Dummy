@@ -18,7 +18,8 @@ class ProductScreenListViewModel @Inject constructor(
 
     fun getData() {
         viewModelScope.launch {
-            repository.getProductsData()
+            val sdfsd = repository.getProductsData()
+            Log.e("DATA!!!", sdfsd.toString())
         }
     }
 
