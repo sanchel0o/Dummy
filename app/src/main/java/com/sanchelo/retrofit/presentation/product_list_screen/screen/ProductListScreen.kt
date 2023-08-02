@@ -5,10 +5,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material.icons.outlined.ThumbUp
@@ -18,8 +21,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
@@ -35,27 +41,32 @@ import com.sanchelo.retrofit.presentation.product_list_screen.mvvm.ProductScreen
 @Composable
 fun ProductListScreen() {
     val viewModel: ProductScreenListViewModel = hiltViewModel()
-    //val state by viewModel.productData.collectAsStateWithLifecycle()
-}
+    val state by viewModel.productData.collectAsState()
 
-
-@Composable
-fun ProductList(
-) {
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
     ) {
-        items(10) {
-            ProductCard()
+        items(state) { item ->
+            ProductCard(
+                title = item.title,
+                brand = item.brand,
+                imageUrl = item.images[0],
+                price = item.price,
+                description = item.description
+            )
         }
     }
 }
 
-
 @Composable
 //@Preview(showBackground = true)
 fun ProductCard(
+    title: String,
+    brand: String,
+    imageUrl: String,
+    price: Int,
+    description: String
 ) {
     Card(
         Modifier
@@ -68,61 +79,74 @@ fun ProductCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
+                .clip(RoundedCornerShape(5.dp))
+
         ) {
             Column {
                 Row() {
-                    ImageHeader()
+                    ImageHeader(imageUrl)
                     Column(
                         modifier = Modifier
                             .padding(start = 8.dp)
                     ) {
-                        Title()
-                        Brand()
-                        Description()
+                        Title(title)
+                        Brand(brand)
+                        Description(description)
                     }
                 }
-                BottomBlock()
+                BottomBlock(price)
             }
         }
     }
 }
 
 @Composable
-fun ImageHeader() {
+fun ImageHeader(
+    imageUrl: String
+) {
     AsyncImage(
         modifier = Modifier.size(100.dp),
         contentScale = ContentScale.Fit,
-        model = "https://example.com/image.jpg",
+        model = imageUrl,
         contentDescription = "Product Image"
     )
 }
 
 @Composable
-fun Title() {
+fun Title(
+    title: String
+) {
     Text(
         fontSize = 20.sp,
         fontWeight = FontWeight.Bold,
-        text = "Apple"
+        text = title
     )
 }
 
 @Composable
-fun Brand() {
+fun Brand(
+    brand: String
+) {
     Text(
-        text = "iPhone X"
+        text = brand
+
     )
 }
 
 @Composable
-fun Description() {
+fun Description(
+    description: String
+) {
     Text(
         fontWeight = FontWeight.Light,
-        text = "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ..."
+        text = description
     )
 }
 
 @Composable
-fun BottomBlock() {
+fun BottomBlock(
+    price: Int
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth(),
@@ -133,7 +157,7 @@ fun BottomBlock() {
             Text(
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
-                text = "737 $"
+                text = price.toString()
             )
             Column(
                 Modifier.padding(5.dp)
@@ -180,13 +204,6 @@ fun AddToFavouritesButton() {
         Icon(Icons.Outlined.ThumbUp, contentDescription = "Add to favourites")
     }
 }
-
-@Composable
-@Preview(showBackground = true)
-private fun ProductListPreview() {
-    ProductList()
-}
-
 
 
 

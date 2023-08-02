@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sanchelo.retrofit.presentation.core.RetrofitTheme
 import com.sanchelo.retrofit.presentation.product_list_screen.mvvm.ProductScreenListViewModel
+import com.sanchelo.retrofit.presentation.product_list_screen.screen.ProductListScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -38,37 +39,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             RetrofitTheme {
-                Products()
+                ProductListScreen()
             }
         }
     }
 }
-@Composable
-fun Products() {
-    val viewModel: ProductScreenListViewModel = hiltViewModel()
-    val state by viewModel.productData.collectAsState()
-
-    LazyColumn {
-        items(state) {item ->
-            ProductCard(brand = item.brand, title = item.title, description = item.description)
-        }
-    }
-}
-
-@Composable
-fun ProductCard(
-    brand: String,
-    title: String,
-    description: String
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.LightGray)
-    ) {
-        Text(text = brand)
-        Text(text = title)
-        Text(text = description)
-    }
-}
-
