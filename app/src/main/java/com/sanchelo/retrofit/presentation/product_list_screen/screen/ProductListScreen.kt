@@ -28,21 +28,19 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.sanchelo.retrofit.presentation.product_list_screen.mvvm.ProductScreenListViewModel
 
 @Composable
-fun ProductListScreen(
-
-) {
-    //val activity = LocalContext.current as Activity
-    //val viewModel: ProductListScreenViewModel = hiltViewModel()
-    //val state by viewModel.collectAsStateWithLifecycle()
+fun ProductListScreen() {
+    val viewModel: ProductScreenListViewModel = hiltViewModel()
+    //val state by viewModel.productData.collectAsStateWithLifecycle()
 }
+
 
 @Composable
 fun ProductList(
-    //state: ProductListScreenState,
-
 ) {
     LazyColumn(
         modifier = Modifier
@@ -57,7 +55,8 @@ fun ProductList(
 
 @Composable
 //@Preview(showBackground = true)
-fun ProductCard() {
+fun ProductCard(
+) {
     Card(
         Modifier
             .fillMaxWidth()
