@@ -14,11 +14,8 @@ object ProductListScreenActor : MviActor<ProductListScreenActions, ProductListSc
         state: ProductListScreenState
     ): Flow<ProductListScreenEffects> = flow {
         when (action) {
-//            is ProductListScreenActions.ClickCloseButton ->
-//                emit(ProductListScreenEffects.CloseApp)
-//
-//            is ProductListScreenActions.SelectNumber ->
-//                emit(ProductListScreenEffects.SelectNumber(number = action.number))
+            is ProductListScreenActions.SelectNumber ->
+                emit(ProductListScreenEffects.SelectNumber(number = action.number))
 
             else -> {}
         }

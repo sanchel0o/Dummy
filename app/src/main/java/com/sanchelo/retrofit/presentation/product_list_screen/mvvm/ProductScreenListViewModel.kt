@@ -1,9 +1,6 @@
 package com.sanchelo.retrofit.presentation.product_list_screen.mvvm
 
 import android.util.Log
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sanchelo.retrofit.domain.model.ProductData
@@ -13,9 +10,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,30 +19,41 @@ class ProductScreenListViewModel @Inject constructor(
     private val getProductDataUseCase: GetProductDataUseCase
 ) : ViewModel() {
 
-    private var result: List<ProductData> = emptyList()
+
 
     private val _productData: MutableStateFlow<List<ProductData>> = MutableStateFlow(emptyList())
     val productData = _productData.asStateFlow()
 
-    private val _titleInputFlow = MutableStateFlow("")
-    val titleInputFlow: StateFlow<String> = _titleInputFlow.asStateFlow()
+    private val _uiState = MutableStateFlow(ProductListScreenState())
+    val uiState: StateFlow<ProductListScreenState> = _uiState.asStateFlow()
 
-    fun getData() {
+    fun onEvent(event: ProductListEvents) {
+        when(event) {
+            is ProductListEvents.AddToCart -> {
+                Log.e("AAA","Add to cart button clicked!")
+            }
+            is ProductListEvents.AddToFavorites -> {
+                Log.e("AAA","Add to favorites button clicked!")
+            }
+            is ProductListEvents.CardClick -> {
+                Log.e("AAA","Card clicked!")
+            }
+        }
+    }
+    private fun getData() {
         viewModelScope.launch {
-            result = repository.getProductsData()
-            _productData.emit(result)
+            _productData.emit(repository.getProductsData())
         }
     }
 
+    fun onCardClick() {
+
+    }
+
     init {
-        getData()
-        Log.e("AAA", "VM Created")
+        if (_productData.value.isEmpty()) {
+            getData()
+            Log.e("AAA", "VM Created")
+        }
     }
-
-    override fun onCleared() {
-        Log.e("AAA", "VM Destroyed")
-        super.onCleared()
-    }
-
 }
-

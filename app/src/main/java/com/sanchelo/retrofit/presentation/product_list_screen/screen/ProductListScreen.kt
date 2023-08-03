@@ -1,6 +1,7 @@
 package com.sanchelo.retrofit.presentation.product_list_screen.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +20,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -33,25 +35,31 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
+import com.sanchelo.retrofit.presentation.product_list_screen.mvvm.ProductListEvents
 import com.sanchelo.retrofit.presentation.product_list_screen.mvvm.ProductScreenListViewModel
 
 @Composable
 fun ProductListScreen() {
     val viewModel: ProductScreenListViewModel = hiltViewModel()
-    val state by viewModel.productData.collectAsState()
+    val state by viewModel.productData.collectAsStateWithLifecycle()
 
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
     ) {
-        items(state) { item ->
+        items(
+            items = state,
+            key = { it.id }
+        ) { item ->
             ProductCard(
                 title = item.title,
                 brand = item.brand,
                 imageUrl = item.images[0],
                 price = item.price,
-                description = item.description
+                description = item.description,
+                onClicked = { viewModel.onEvent(ProductListEvents.CardClick) }
             )
         }
     }
@@ -64,19 +72,21 @@ fun ProductCard(
     brand: String,
     imageUrl: String,
     price: Int,
-    description: String
+    description: String,
+    onClicked: () -> Unit
 ) {
     Card(
         Modifier
             .fillMaxWidth()
-            .padding(5.dp),
-        colors = CardDefaults.cardColors(Color.White),
+            .padding(5.dp)
+            .clickable { onClicked },
+        //colors = CardDefaults.cardColors(darkColorScheme(primary = )),
         elevation = CardDefaults.cardElevation(10.dp),
         shape = RoundedCornerShape(5.dp)
     ) {
 
         Column(modifier = Modifier.padding(8.dp)) {
-            Row() {
+            Row {
                 ImageHeader(imageUrl)
                 Column(
                     modifier = Modifier
@@ -122,7 +132,6 @@ fun Brand(
 ) {
     Text(
         text = brand
-
     )
 }
 
@@ -190,24 +199,9 @@ fun AddToCartButton() {
 
 @Composable
 fun AddToFavouritesButton() {
-
     IconButton(
         onClick = { /*TODO*/ }
     ) {
         Icon(Icons.Outlined.ThumbUp, contentDescription = "Add to favourites")
     }
 }
-
-@Composable
-@Preview(showBackground = true)
-fun Text() {
-    Card(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Box {
-            Text(text = "LSDFSDF")
-        }
-    }
-}
-
-
