@@ -17,6 +17,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -36,12 +37,13 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint //if we have dependencies in android component class
 class MainActivity : ComponentActivity() {
 
-    //private val viewModel: ProductScreenListViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             RetrofitTheme {
-                ProductListScreen()
+                Surface {
+                    ProductListScreen()
+                }
             }
         }
     }
