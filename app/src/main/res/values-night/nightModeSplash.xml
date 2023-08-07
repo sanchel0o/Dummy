@@ -2,7 +2,7 @@
 <resources>
     <style name="Theme.App.Starting." parent = "Theme.SplashScreen">
         <item name="windowSplashScreenBackground">#202020</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/baseline_data_exploration_24</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_logo</item>
         <item name="postSplashScreenTheme">@style/Theme.Retrofit</item>
     </style>
 

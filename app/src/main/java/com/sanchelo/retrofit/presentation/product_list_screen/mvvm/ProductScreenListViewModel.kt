@@ -7,12 +7,9 @@ import com.sanchelo.retrofit.domain.model.ProductData
 import com.sanchelo.retrofit.domain.repository.ProductsRepository
 import com.sanchelo.retrofit.domain.use_cases.GetProductDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,6 +29,7 @@ class ProductScreenListViewModel @Inject constructor(
             }
 
             is ProductListEvents.AddToFavorites -> {
+                val isPressed = true
                 Log.e("AAA", "Add to favorites button clicked!")
             }
 
@@ -43,15 +41,24 @@ class ProductScreenListViewModel @Inject constructor(
 
     private fun getData() {
         viewModelScope.launch {
+            _uiState.value = _uiState.value.copy(
+                productData = emptyList(),
+                isLoading = true
+            )
+
             val response: List<ProductData> = try {
-                Log.e("UIFlow", "Data Loaded")
                 repository.getProductsData()
-            } catch ( e:Exception ) {
+            } catch (e: Exception) {
                 emptyList()
             }
-            _uiState.value = _uiState.value.copy( productData = response)
+
+            _uiState.value = _uiState.value.copy(
+                productData = response,
+                isLoading = false
+            )
         }
     }
+
     init {
         if (uiState.value.productData.isEmpty()) {
             getData()

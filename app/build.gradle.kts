@@ -62,6 +62,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
+    implementation("androidx.navigation:navigation-compose:2.6.0")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.0-beta01")
 
     implementation("androidx.core:core-splashscreen:1.0.1")
@@ -72,6 +73,7 @@ dependencies {
 
     //accompanist
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.31.0-alpha")
+    implementation ("com.google.accompanist:accompanist-placeholder-material:0.31.0-alpha")
 
     // Debug
     testImplementation("junit:junit:4.13.2")
