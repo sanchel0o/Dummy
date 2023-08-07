@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.sanchelo.retrofit"
+    namespace = "com.sanchelo.dummy"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.sanchelo.retrofit"
+        applicationId = "com.sanchelo.dummy"
         minSdk = 29
         targetSdk = 33
         versionCode = 1
