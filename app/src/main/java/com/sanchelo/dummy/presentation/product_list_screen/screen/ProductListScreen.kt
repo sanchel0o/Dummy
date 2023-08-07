@@ -20,6 +20,7 @@ import com.sanchelo.dummy.presentation.product_list_screen.mvvm.ProductListEvent
 import com.sanchelo.dummy.presentation.product_list_screen.mvvm.ProductScreenListViewModel
 import com.sanchelo.dummy.presentation.product_list_screen.screen.compose.FilterButton
 import com.sanchelo.dummy.presentation.product_list_screen.screen.compose.MenuButton
+import com.sanchelo.dummy.presentation.product_list_screen.screen.compose.PostCard
 import com.sanchelo.dummy.presentation.product_list_screen.screen.compose.ProductCard
 import com.sanchelo.dummy.presentation.product_list_screen.screen.compose.SearchButton
 import com.sanchelo.dummy.presentation.product_list_screen.screen.compose.TopBarLogo
@@ -52,6 +53,7 @@ fun ProductListScreen() {
                 .consumeWindowInsets(values),
             contentPadding = values
         ) {
+            item { PostCard() }
             items(
                 items = state.productData,
                 key = { it.id }

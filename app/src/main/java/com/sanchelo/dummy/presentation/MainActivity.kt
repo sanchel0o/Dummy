@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.view.WindowCompat
-import com.sanchelo.dummy.presentation.core.RetrofitTheme
+import com.sanchelo.dummy.presentation.core.DummyTheme
 import com.sanchelo.dummy.presentation.product_list_screen.screen.ProductListScreen
 import com.sanchelo.dummy.presentation.product_list_screen.screen.compose.TransparentSystemBars
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            RetrofitTheme {
+            DummyTheme {
                 TransparentSystemBars()
                 ProductListScreen()
             }

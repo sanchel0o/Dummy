@@ -45,7 +45,6 @@ fun ProductCard(
             .clickable { onClicked() },
         elevation = CardDefaults.cardElevation(5.dp),
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surface),
-        shape = RoundedCornerShape(5.dp)
     ) {
         Column(modifier = Modifier.padding(8.dp)) {
             Row {
@@ -61,7 +60,6 @@ fun ProductCard(
             }
             BottomBlock(price)
         }
-
     }
 }
 

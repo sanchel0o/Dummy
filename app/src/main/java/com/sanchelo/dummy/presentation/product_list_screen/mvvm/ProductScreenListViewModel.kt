@@ -29,7 +29,6 @@ class ProductScreenListViewModel @Inject constructor(
             }
 
             is ProductListEvents.AddToFavorites -> {
-                val isPressed = true
                 Log.e("AAA", "Add to favorites button clicked!")
             }
 
