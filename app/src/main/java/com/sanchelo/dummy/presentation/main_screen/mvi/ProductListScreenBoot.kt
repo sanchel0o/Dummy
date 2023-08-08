@@ -1,9 +1,9 @@
-package com.sanchelo.dummy.presentation.product_list_screen.mvi
+package com.sanchelo.dummy.presentation.main_screen.mvi
 
 import com.sanchelo.dummy.core.mvi.MviBoot
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import com.sanchelo.dummy.presentation.product_list_screen.mvi.model.ProductListScreenEffects
+import com.sanchelo.dummy.presentation.main_screen.mvi.model.ProductListScreenEffects
 
 object ProductListScreenBoot : MviBoot<ProductListScreenEffects> {
 

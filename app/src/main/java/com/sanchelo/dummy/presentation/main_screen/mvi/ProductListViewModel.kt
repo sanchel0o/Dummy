@@ -1,10 +1,10 @@
-package com.sanchelo.dummy.presentation.product_list_screen.mvi
+package com.sanchelo.dummy.presentation.main_screen.mvi
 
 import com.sanchelo.dummy.core.mvi.MviViewModel
-import com.sanchelo.dummy.presentation.product_list_screen.mvi.model.ProductListScreenActions
-import com.sanchelo.dummy.presentation.product_list_screen.mvi.model.ProductListScreenEffects
-import com.sanchelo.dummy.presentation.product_list_screen.mvi.model.ProductListScreenEvents
-import com.sanchelo.dummy.presentation.product_list_screen.mvi.model.ProductListScreenState
+import com.sanchelo.dummy.presentation.main_screen.mvi.model.ProductListScreenActions
+import com.sanchelo.dummy.presentation.main_screen.mvi.model.ProductListScreenEffects
+import com.sanchelo.dummy.presentation.main_screen.mvi.model.ProductListScreenEvents
+import com.sanchelo.dummy.presentation.main_screen.mvi.model.ProductListScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

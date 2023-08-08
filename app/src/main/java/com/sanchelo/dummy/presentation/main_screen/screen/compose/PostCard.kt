@@ -1,4 +1,4 @@
-package com.sanchelo.dummy.presentation.product_list_screen.screen.compose
+package com.sanchelo.dummy.presentation.main_screen.screen.compose
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -36,7 +36,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 
 @Composable
-fun PostCard(reactions: Int, body: String, title: String, tags: List<String>) {
+fun PostCard(reactions: Int, body: String, title: String, tags: List<String>, onLikeClick: () -> Unit) {
     Card(
         modifier = Modifier
             .padding(5.dp)
@@ -52,7 +52,7 @@ fun PostCard(reactions: Int, body: String, title: String, tags: List<String>) {
             PostTitle(title)
             PostBody(body)
             Divider(color = MaterialTheme.colorScheme.background)
-            PostInfo(reactions, tags)
+            PostInfo(reactions, tags, onLikeClick)
         }
     }
 }
@@ -133,7 +133,7 @@ fun PostBody(body: String) {
 }
 
 @Composable
-fun PostInfo(reactions: Int, tags: List<String>) {
+fun PostInfo(reactions: Int, tags: List<String>, onLikeClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -142,7 +142,7 @@ fun PostInfo(reactions: Int, tags: List<String>) {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Tags(tags)
-        Reactions(reactions)
+        Reactions(reactions, onLikeClick )
 
     }
 }
@@ -171,7 +171,8 @@ fun Tags(tags: List<String>) {
 
 @Composable
 fun Reactions(
-    reactions: Int
+    reactions: Int,
+    onLikeClick: () -> Unit
 ) {
     val checked = remember { mutableStateOf(false) }
     val reactionsCounter = remember { mutableStateOf(reactions) }
@@ -190,6 +191,7 @@ fun Reactions(
                     contentDescription = "",
                     tint = MaterialTheme.colorScheme.primary
                 )
+                onLikeClick()
             } else {
                 Icon(
                     Icons.Outlined.FavoriteBorder,

@@ -1,8 +1,8 @@
-package com.sanchelo.dummy.presentation.product_list_screen.mvi
+package com.sanchelo.dummy.presentation.main_screen.mvi
 
 import com.sanchelo.dummy.core.mvi.MviStateProducer
-import com.sanchelo.dummy.presentation.product_list_screen.mvi.model.ProductListScreenEffects
-import com.sanchelo.dummy.presentation.product_list_screen.mvi.model.ProductListScreenState
+import com.sanchelo.dummy.presentation.main_screen.mvi.model.ProductListScreenEffects
+import com.sanchelo.dummy.presentation.main_screen.mvi.model.ProductListScreenState
 
 object ProductListScreenStateProducer : MviStateProducer<ProductListScreenEffects, ProductListScreenState> {
     override suspend fun invoke(

@@ -1,8 +1,8 @@
-package com.sanchelo.dummy.presentation.product_list_screen.mvi
+package com.sanchelo.dummy.presentation.main_screen.mvi
 
 import com.sanchelo.dummy.core.mvi.MviEventProducer
-import com.sanchelo.dummy.presentation.product_list_screen.mvi.model.ProductListScreenEffects
-import com.sanchelo.dummy.presentation.product_list_screen.mvi.model.ProductListScreenEvents
+import com.sanchelo.dummy.presentation.main_screen.mvi.model.ProductListScreenEffects
+import com.sanchelo.dummy.presentation.main_screen.mvi.model.ProductListScreenEvents
 
 object ProductListScreenEventProducer : MviEventProducer<ProductListScreenEffects, ProductListScreenEvents> {
 

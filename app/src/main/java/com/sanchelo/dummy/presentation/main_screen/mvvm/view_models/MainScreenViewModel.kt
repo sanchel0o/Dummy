@@ -1,10 +1,12 @@
-package com.sanchelo.dummy.presentation.product_list_screen.mvvm
+package com.sanchelo.dummy.presentation.main_screen.mvvm.view_models
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sanchelo.dummy.domain.repository.ProductsRepository
 import com.sanchelo.dummy.domain.use_cases.GetProductDataUseCase
+import com.sanchelo.dummy.presentation.main_screen.mvvm.events.MainScreenEvents
+import com.sanchelo.dummy.presentation.main_screen.mvvm.states.MainScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,31 +15,32 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProductScreenListViewModel @Inject constructor(
+class MainScreenViewModel @Inject constructor(
     private val productsRepository: ProductsRepository,
 
     private val getProductDataUseCase: GetProductDataUseCase
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(ProductListScreenState())
-    val uiState: StateFlow<ProductListScreenState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(MainScreenState())
+    val uiState: StateFlow<MainScreenState> = _uiState.asStateFlow()
 
-    fun onEvent(event: ProductListEvents) {
+    fun onEvent(event: MainScreenEvents) {
         when (event) {
-            is ProductListEvents.AddToCart -> {
+            is MainScreenEvents.AddToCart -> {
                 Log.e("AAA", "Add to cart button clicked!")
             }
 
-            is ProductListEvents.AddToFavorites -> {
+            is MainScreenEvents.AddToFavorites -> {
                 Log.e("AAA", "Add to favorites button clicked!")
             }
 
-            is ProductListEvents.CardClick -> {
+            is MainScreenEvents.CardClick -> {
                 Log.e("AAA", "Card clicked!")
             }
 
-            is ProductListEvents.ReactionClick -> {
-
+            is MainScreenEvents.ReactionClick -> {
+                _uiState.value.postData?.reactions?.inc()
+                Log.e("AAA", "Like Clicked!")
             }
         }
     }
@@ -67,7 +70,7 @@ class ProductScreenListViewModel @Inject constructor(
                     null
                 }
 
-                _uiState.value = _uiState.value.copy(
+                value = _uiState.value.copy(
                     productData = products,
                     postData = post,
                     isLoading = false

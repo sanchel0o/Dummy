@@ -1,11 +1,11 @@
-package com.sanchelo.dummy.presentation.product_list_screen.mvi
+package com.sanchelo.dummy.presentation.main_screen.mvi
 
 import com.sanchelo.dummy.core.mvi.MviActor
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import com.sanchelo.dummy.presentation.product_list_screen.mvi.model.ProductListScreenActions
-import com.sanchelo.dummy.presentation.product_list_screen.mvi.model.ProductListScreenEffects
-import com.sanchelo.dummy.presentation.product_list_screen.mvi.model.ProductListScreenState
+import com.sanchelo.dummy.presentation.main_screen.mvi.model.ProductListScreenActions
+import com.sanchelo.dummy.presentation.main_screen.mvi.model.ProductListScreenEffects
+import com.sanchelo.dummy.presentation.main_screen.mvi.model.ProductListScreenState
 
 object ProductListScreenActor : MviActor<ProductListScreenActions, ProductListScreenEffects, ProductListScreenState> {
 

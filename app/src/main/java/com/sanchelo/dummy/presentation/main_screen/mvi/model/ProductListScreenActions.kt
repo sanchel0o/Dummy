@@ -1,4 +1,4 @@
-package com.sanchelo.dummy.presentation.product_list_screen.mvi.model
+package com.sanchelo.dummy.presentation.main_screen.mvi.model
 
 import com.sanchelo.dummy.core.mvi.MviAction
 

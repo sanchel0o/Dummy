@@ -1,4 +1,4 @@
-package com.sanchelo.dummy.presentation.product_list_screen.screen.compose
+package com.sanchelo.dummy.presentation.main_screen.screen.compose
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

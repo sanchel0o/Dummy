@@ -1,4 +1,4 @@
-package com.sanchelo.dummy.presentation.product_list_screen.screen
+package com.sanchelo.dummy.presentation.main_screen.screen
 
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.consumeWindowInsets
@@ -16,19 +16,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.sanchelo.dummy.presentation.product_list_screen.mvvm.ProductListEvents
-import com.sanchelo.dummy.presentation.product_list_screen.mvvm.ProductScreenListViewModel
-import com.sanchelo.dummy.presentation.product_list_screen.screen.compose.FilterButton
-import com.sanchelo.dummy.presentation.product_list_screen.screen.compose.MenuButton
-import com.sanchelo.dummy.presentation.product_list_screen.screen.compose.PostCard
-import com.sanchelo.dummy.presentation.product_list_screen.screen.compose.ProductCard
-import com.sanchelo.dummy.presentation.product_list_screen.screen.compose.SearchButton
+import com.sanchelo.dummy.presentation.main_screen.mvvm.events.MainScreenEvents
+import com.sanchelo.dummy.presentation.main_screen.mvvm.view_models.MainScreenViewModel
+import com.sanchelo.dummy.presentation.main_screen.screen.compose.FilterButton
+import com.sanchelo.dummy.presentation.main_screen.screen.compose.MenuButton
+import com.sanchelo.dummy.presentation.main_screen.screen.compose.PostCard
+import com.sanchelo.dummy.presentation.main_screen.screen.compose.ProductCard
+import com.sanchelo.dummy.presentation.main_screen.screen.compose.SearchButton
 import androidx.compose.foundation.layout.fillMaxSize as fillMaxSize1
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun MainScreen() {
-    val viewModel: ProductScreenListViewModel = hiltViewModel()
+    val viewModel: MainScreenViewModel = hiltViewModel()
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     val topAppBarScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -64,8 +64,8 @@ fun MainScreen() {
                             title = state.postData?.title ?: "No post",
                             body = state.postData?.body ?: "Post body",
                             reactions = state.postData?.reactions ?: 0,
-                            tags = state.postData?.tags ?: emptyList()
-
+                            tags = state.postData?.tags ?: emptyList(),
+                            onLikeClick = { viewModel.onEvent(MainScreenEvents.ReactionClick(1)) }
                         )
                     }
                     items(
@@ -78,7 +78,7 @@ fun MainScreen() {
                             imageUrl = item.images[0],
                             price = item.price,
                             description = item.description,
-                            onClicked = { viewModel.onEvent(ProductListEvents.CardClick) }
+                            onClicked = { viewModel.onEvent(MainScreenEvents.CardClick) }
                         )
                     }
                 }
