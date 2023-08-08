@@ -9,5 +9,5 @@ fun PostDto.toPostData (): PostData = PostData(
     title = title,
     body = body,
     reactions = reactions,
-    tags = tags
+    tags = tags.map {"#${it}"}
 )

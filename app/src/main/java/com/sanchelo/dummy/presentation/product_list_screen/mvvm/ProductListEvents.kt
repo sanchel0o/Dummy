@@ -4,4 +4,5 @@ sealed class ProductListEvents {
     data object CardClick: ProductListEvents()
     data class AddToCart(val id: Int): ProductListEvents()
     data class AddToFavorites(val id: Int): ProductListEvents()
+    data class ReactionClick(val counter: Int): ProductListEvents()
 }

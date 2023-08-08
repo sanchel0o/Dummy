@@ -2,11 +2,11 @@ package com.sanchelo.dummy.presentation.product_list_screen.screen
 
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.consumeWindowInsets
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -23,50 +23,66 @@ import com.sanchelo.dummy.presentation.product_list_screen.screen.compose.MenuBu
 import com.sanchelo.dummy.presentation.product_list_screen.screen.compose.PostCard
 import com.sanchelo.dummy.presentation.product_list_screen.screen.compose.ProductCard
 import com.sanchelo.dummy.presentation.product_list_screen.screen.compose.SearchButton
-import com.sanchelo.dummy.presentation.product_list_screen.screen.compose.TopBarLogo
+import androidx.compose.foundation.layout.fillMaxSize as fillMaxSize1
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
-fun ProductListScreen() {
+fun MainScreen() {
     val viewModel: ProductScreenListViewModel = hiltViewModel()
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     val topAppBarScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-    Scaffold(
-        modifier = Modifier
-            .fillMaxSize()
-            .nestedScroll(topAppBarScrollBehavior.nestedScrollConnection),
-        topBar = {
-            TopAppBar(
-                title = { TopBarLogo() },
-                navigationIcon = { MenuButton(onMenuButtonClick = {}) },
-                actions = {
-                    SearchButton(onSearchButtonClick = {})
-                    FilterButton(onFilterButtonClick = {})
-                },
-                scrollBehavior = topAppBarScrollBehavior
-            )
-        }) { values ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .consumeWindowInsets(values),
-            contentPadding = values
-        ) {
-            item { PostCard() }
-            items(
-                items = state.productData,
-                key = { it.id }
-            ) { item ->
-                ProductCard(
-                    title = item.title,
-                    brand = item.brand,
-                    imageUrl = item.images[0],
-                    price = item.price,
-                    description = item.description,
-                    onClicked = { viewModel.onEvent(ProductListEvents.CardClick) }
-                )
+
+    if (state.isLoading) {
+        LinearProgressIndicator(
+            modifier = Modifier.fillMaxWidth()
+        )
+    } else {
+            Scaffold(
+                modifier = Modifier
+                    .fillMaxSize1()
+                    .nestedScroll(topAppBarScrollBehavior.nestedScrollConnection),
+                topBar = {
+                    TopAppBar(
+                        title = { },
+                        navigationIcon = { MenuButton(onMenuButtonClick = {}) },
+                        actions = {
+                            SearchButton(onSearchButtonClick = {})
+                            FilterButton(onFilterButtonClick = {})
+                        },
+                        scrollBehavior = topAppBarScrollBehavior
+                    )
+                }) { values ->
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .consumeWindowInsets(values),
+                    contentPadding = values
+                ) {
+                    item {
+                        PostCard(
+                            title = state.postData?.title ?: "No post",
+                            body = state.postData?.body ?: "Post body",
+                            reactions = state.postData?.reactions ?: 0,
+                            tags = state.postData?.tags ?: emptyList()
+
+                        )
+                    }
+                    items(
+                        items = state.productData,
+                        key = { it.id }
+                    ) { item ->
+                        ProductCard(
+                            title = item.title,
+                            brand = item.brand,
+                            imageUrl = item.images[0],
+                            price = item.price,
+                            description = item.description,
+                            onClicked = { viewModel.onEvent(ProductListEvents.CardClick) }
+                        )
+                    }
+                }
             }
         }
-    }
+
 }

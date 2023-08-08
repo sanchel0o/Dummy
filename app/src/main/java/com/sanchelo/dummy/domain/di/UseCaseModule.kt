@@ -17,4 +17,10 @@ abstract class UseCaseModule {
     abstract fun bindGetProductDataUseCase(
         getProductDataUseCaseImpl : GetProductDataUseCaseImpl
     ): GetProductDataUseCase
+
+//    @Binds
+//    @Singleton
+//    abstract fun bindGetProductDataUseCase(
+//        getPostDataUseCaseImpl : GetPostDataUseCaseImpl
+//    ): GetPostDataUseCase
 }

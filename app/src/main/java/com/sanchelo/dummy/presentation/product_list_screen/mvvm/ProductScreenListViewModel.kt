@@ -3,7 +3,6 @@ package com.sanchelo.dummy.presentation.product_list_screen.mvvm
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sanchelo.dummy.domain.model.ProductData
 import com.sanchelo.dummy.domain.repository.ProductsRepository
 import com.sanchelo.dummy.domain.use_cases.GetProductDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProductScreenListViewModel @Inject constructor(
-    private val repository: ProductsRepository,
+    private val productsRepository: ProductsRepository,
+
     private val getProductDataUseCase: GetProductDataUseCase
 ) : ViewModel() {
 
@@ -33,36 +33,50 @@ class ProductScreenListViewModel @Inject constructor(
             }
 
             is ProductListEvents.CardClick -> {
-                
                 Log.e("AAA", "Card clicked!")
+            }
+
+            is ProductListEvents.ReactionClick -> {
+
             }
         }
     }
 
     private fun getData() {
         viewModelScope.launch {
-            _uiState.value = _uiState.value.copy(
-                productData = emptyList(),
-                isLoading = true
-            )
+            with(_uiState) {
+                value = value.copy(
+                    productData = emptyList(),
+                    postData = null,
+                    isLoading = true
+                )
 
-            val response: List<ProductData> = try {
-                repository.getProductsData()
-            } catch (e: Exception) {
-                emptyList()
+                val products = try {
+                    productsRepository.getProductsData()
+                } catch (e: Exception) {
+
+                    Log.e("AAA", "ERROR!")
+                    emptyList()
+                }
+
+                val post = try {
+                    productsRepository.getPost()
+                } catch (e: Exception) {
+                    value = value.copy(isLoading = false)
+                    Log.e("AAA", "ERROR!")
+                    null
+                }
+
+                _uiState.value = _uiState.value.copy(
+                    productData = products,
+                    postData = post,
+                    isLoading = false
+                )
             }
-
-            _uiState.value = _uiState.value.copy(
-                productData = response,
-                isLoading = false
-            )
         }
     }
 
     init {
-        if (uiState.value.productData.isEmpty()) {
-            getData()
-            Log.e("AAA", "VM Created")
-        }
+        getData()
     }
 }

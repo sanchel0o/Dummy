@@ -11,17 +11,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,15 +31,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import org.w3c.dom.Text
 
 @Composable
-@Preview(showBackground = true)
-fun PostCard() {
+fun PostCard(reactions: Int, body: String, title: String, tags: List<String>) {
     Card(
         modifier = Modifier
             .padding(5.dp)
@@ -47,13 +46,13 @@ fun PostCard() {
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.tertiary),
     ) {
         Column(
-           // modifier = Modifier.padding(5.dp)
+            // modifier = Modifier.padding(5.dp)
         ) {
             UserInfo(userImage = "")
-            PostTitle()
-            PostBody()
-            Divider()
-            PostInfo()
+            PostTitle(title)
+            PostBody(body)
+            Divider(color = MaterialTheme.colorScheme.background)
+            PostInfo(reactions, tags)
         }
     }
 }
@@ -63,7 +62,7 @@ fun UserInfo(userImage: String) {
     Row(
         modifier = Modifier,
         verticalAlignment = Alignment.CenterVertically
-    ){
+    ) {
         AsyncImage(
             modifier = Modifier
                 .padding(10.dp)
@@ -84,14 +83,16 @@ fun UserInfo(userImage: String) {
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Medium
                 ),
-                text = "Sheldon" + " " + "Quigley")
+                text = "Sheldon" + " " + "Quigley"
+            )
             Text(
                 modifier = Modifier,
                 style = TextStyle(
                     color = MaterialTheme.colorScheme.primary,
                     fontSize = 15.sp,
                 ),
-                text = "@username")
+                text = "@username"
+            )
         }
 
     }
@@ -99,7 +100,7 @@ fun UserInfo(userImage: String) {
 }
 
 @Composable
-fun PostTitle() {
+fun PostTitle(title: String) {
     Text(
         modifier = Modifier.padding(start = 10.dp),
         overflow = TextOverflow.Ellipsis,
@@ -110,12 +111,12 @@ fun PostTitle() {
             textAlign = TextAlign.Start,
             fontWeight = FontWeight.SemiBold,
         ),
-        text = "He was an expert but not in a discipline"
+        text = title
     )
 }
 
 @Composable
-fun PostBody() {
+fun PostBody(body: String) {
     Text(
         modifier = Modifier.padding(start = 10.dp, top = 5.dp, end = 10.dp, bottom = 5.dp),
         overflow = TextOverflow.Ellipsis,
@@ -127,28 +128,75 @@ fun PostBody() {
             fontSize = 15.sp,
             textAlign = TextAlign.Justify,
         ),
-        text = "birthright, & there is nothing in my early life that suggests artistick aptitude or even interest, my pastimes & fascinations nearly all being what may – & were – deemed the merely villainous.\",",
+        text = body
     )
 }
 
 @Composable
-fun PostInfo() {
+fun PostInfo(reactions: Int, tags: List<String>) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp),
+        verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Text(
-            modifier = Modifier,
-            style = TextStyle(
-                color = MaterialTheme.colorScheme.primaryContainer,
-                fontWeight = FontWeight.Light
-            ),
-            text = "#tags"
-        )
-        IconButton(onClick = { /*TODO*/ }) {
-            Icon(Icons.Outlined.FavoriteBorder, contentDescription = "")
+        Tags(tags)
+        Reactions(reactions)
+
+    }
+}
+
+@Composable
+fun Tags(tags: List<String>) {
+    Row(
+    ) {
+        tags.forEach {
+            TextButton(
+                onClick = { /*TODO*/ }
+            ) {
+                Text(
+                    modifier = Modifier,
+                    style = TextStyle(
+                        color = MaterialTheme.colorScheme.primaryContainer,
+                        fontWeight = FontWeight.Light
+                    ),
+                    text = it
+                )
+            }
         }
+    }
+
+}
+
+@Composable
+fun Reactions(
+    reactions: Int
+) {
+    val checked = remember { mutableStateOf(false) }
+    val reactionsCounter = remember { mutableStateOf(reactions) }
+    Row(
+        modifier = Modifier,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        IconToggleButton(
+            checked = checked.value,
+            onCheckedChange = { checked.value = it },
+            enabled = true
+        ) {
+            if (checked.value) {
+                Icon(
+                    Icons.Filled.Favorite,
+                    contentDescription = "",
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            } else {
+                Icon(
+                    Icons.Outlined.FavoriteBorder,
+                    contentDescription = "",
+                )
+            }
+        }
+        Text(text = reactionsCounter.value.toString())
     }
 }

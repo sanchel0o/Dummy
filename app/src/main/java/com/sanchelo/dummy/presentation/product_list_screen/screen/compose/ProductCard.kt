@@ -1,18 +1,17 @@
 package com.sanchelo.dummy.presentation.product_list_screen.screen.compose
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -29,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductCard(
     title: String,
@@ -39,12 +39,12 @@ fun ProductCard(
     onClicked: () -> Unit
 ) {
     Card(
-        Modifier
+        modifier = Modifier
             .fillMaxWidth()
-            .padding(5.dp)
-            .clickable { onClicked() },
+            .padding(5.dp),
         elevation = CardDefaults.cardElevation(5.dp),
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surface),
+        onClick = { onClicked() }
     ) {
         Column(modifier = Modifier.padding(8.dp)) {
             Row {
