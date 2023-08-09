@@ -22,6 +22,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -36,7 +37,14 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 
 @Composable
-fun PostCard(reactions: Int, body: String, title: String, tags: List<String>, onLikeClick: () -> Unit) {
+fun PostCard(
+    reactions: Int,
+    body: String,
+    title: String,
+    tags: List<String>,
+    onLikeClick: () -> Unit,
+    checkedStatus: Boolean
+) {
     Card(
         modifier = Modifier
             .padding(5.dp)
@@ -52,7 +60,7 @@ fun PostCard(reactions: Int, body: String, title: String, tags: List<String>, on
             PostTitle(title)
             PostBody(body)
             Divider(color = MaterialTheme.colorScheme.background)
-            PostInfo(reactions, tags, onLikeClick)
+            PostInfo(reactions, tags, onLikeClick, checkedStatus)
         }
     }
 }
@@ -133,7 +141,7 @@ fun PostBody(body: String) {
 }
 
 @Composable
-fun PostInfo(reactions: Int, tags: List<String>, onLikeClick: () -> Unit) {
+fun PostInfo(reactions: Int, tags: List<String>, onLikeClick: () -> Unit, checkedStatus: Boolean) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -142,7 +150,7 @@ fun PostInfo(reactions: Int, tags: List<String>, onLikeClick: () -> Unit) {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Tags(tags)
-        Reactions(reactions, onLikeClick )
+        Reactions(reactions, onLikeClick, checkedStatus)
 
     }
 }
@@ -172,17 +180,20 @@ fun Tags(tags: List<String>) {
 @Composable
 fun Reactions(
     reactions: Int,
-    onLikeClick: () -> Unit
+    onLikeClick: () -> Unit,
+    checkedStatus: Boolean
 ) {
-    val checked = remember { mutableStateOf(false) }
-    val reactionsCounter = remember { mutableStateOf(reactions) }
+    val checked = remember { mutableStateOf(checkedStatus) }
     Row(
         modifier = Modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
         IconToggleButton(
-            checked = checked.value,
-            onCheckedChange = { checked.value = it },
+            checked = checkedStatus,
+            onCheckedChange = {
+                checked.value = it
+                onLikeClick()
+            },
             enabled = true
         ) {
             if (checked.value) {
@@ -191,7 +202,6 @@ fun Reactions(
                     contentDescription = "",
                     tint = MaterialTheme.colorScheme.primary
                 )
-                onLikeClick()
             } else {
                 Icon(
                     Icons.Outlined.FavoriteBorder,
@@ -199,6 +209,6 @@ fun Reactions(
                 )
             }
         }
-        Text(text = reactionsCounter.value.toString())
+        Text(text = reactions.toString())
     }
 }

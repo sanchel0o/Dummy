@@ -23,17 +23,19 @@ import com.sanchelo.dummy.presentation.main_screen.screen.compose.MenuButton
 import com.sanchelo.dummy.presentation.main_screen.screen.compose.PostCard
 import com.sanchelo.dummy.presentation.main_screen.screen.compose.ProductCard
 import com.sanchelo.dummy.presentation.main_screen.screen.compose.SearchButton
+import kotlin.random.Random
 import androidx.compose.foundation.layout.fillMaxSize as fillMaxSize1
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun MainScreen() {
     val viewModel: MainScreenViewModel = hiltViewModel()
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val productCardState by viewModel.productCardState.collectAsStateWithLifecycle()
+    val postCardState by viewModel.postCardState.collectAsStateWithLifecycle()
 
     val topAppBarScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
-    if (state.isLoading) {
+    if (productCardState.isLoading && postCardState.isLoading) {
         LinearProgressIndicator(
             modifier = Modifier.fillMaxWidth()
         )
@@ -61,24 +63,28 @@ fun MainScreen() {
                 ) {
                     item {
                         PostCard(
-                            title = state.postData?.title ?: "No post",
-                            body = state.postData?.body ?: "Post body",
-                            reactions = state.postData?.reactions ?: 0,
-                            tags = state.postData?.tags ?: emptyList(),
-                            onLikeClick = { viewModel.onEvent(MainScreenEvents.ReactionClick(1)) }
+                            title = postCardState.postData?.title ?: "No post",
+                            body = postCardState.postData?.body ?: "Post body",
+                            reactions = postCardState.postData?.reactions ?: 0,
+                            tags = postCardState.postData?.tags ?: emptyList(),
+                            onLikeClick = { viewModel.onEvent(MainScreenEvents.ReactionClick) },
+                            checkedStatus = postCardState.isLikeChecked
                         )
                     }
                     items(
-                        items = state.productData,
+                        items = productCardState.productData,
                         key = { it.id }
                     ) { item ->
                         ProductCard(
+                            cardId = item.id,
                             title = item.title,
                             brand = item.brand,
                             imageUrl = item.images[0],
                             price = item.price,
                             description = item.description,
-                            onClicked = { viewModel.onEvent(MainScreenEvents.CardClick) }
+                            onClicked = { viewModel.onEvent(MainScreenEvents.CardClick) },
+                            favoritesCheckedStatus = productCardState.isAddToFavoritesChecked,
+                            onAddToFavoritesClick = { viewModel.onEvent(MainScreenEvents.AddToFavorites)}
                         )
                     }
                 }
