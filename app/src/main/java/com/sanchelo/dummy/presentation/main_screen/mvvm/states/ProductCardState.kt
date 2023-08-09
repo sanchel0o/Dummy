@@ -4,8 +4,8 @@ import com.sanchelo.dummy.domain.model.ProductData
 
 data class ProductCardState(
     val productData: List<ProductData> = emptyList(),
-    val isAddToFavoritesChecked: Boolean = false,
+    val isAddToFavoritesChecked: List<Int> = emptyList(),
     val isAddToCartChecked: Boolean = false,
-    val cardId: List<Int> = emptyList(),
+    val cardId: Int = 0,
     val isLoading: Boolean = false,
 )

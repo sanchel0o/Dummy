@@ -41,14 +41,10 @@ fun ProductCard(
     imageUrl: String,
     price: Int,
     description: String,
-    onClicked: () -> Unit,
+    onCardClicked: (Int) -> Unit,
     onAddToFavoritesClick: () -> Unit,
     favoritesCheckedStatus: Boolean
 ) {
-    val id = remember {
-        mutableStateOf(cardId)
-    }
-
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -56,8 +52,7 @@ fun ProductCard(
         elevation = CardDefaults.cardElevation(5.dp),
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surface),
         onClick = {
-
-            onClicked()
+            onCardClicked(cardId)
         },
     ) {
         Column(modifier = Modifier.padding(8.dp)) {
@@ -72,7 +67,7 @@ fun ProductCard(
                     Description(description)
                 }
             }
-            BottomBlock(price, favoritesCheckedStatus, onAddToFavoritesClick)
+            BottomBlock(price, cardId, favoritesCheckedStatus, onAddToFavoritesClick)
         }
     }
 }
@@ -122,6 +117,7 @@ fun Description(
 @Composable
 fun BottomBlock(
     price: Int,
+    cardId: Int,
     favoritesCheckedStatus: Boolean,
     onAddToFavoritesClick: () -> Unit
 ) {
@@ -157,7 +153,7 @@ fun BottomBlock(
 
         }
         Row {
-            AddToFavouritesButton(favoritesCheckedStatus, onAddToFavoritesClick)
+            AddToFavouritesButton(favoritesCheckedStatus, cardId, onAddToFavoritesClick)
             AddToCartButton()
         }
     }
@@ -176,28 +172,20 @@ fun AddToCartButton() {
 @Composable
 fun AddToFavouritesButton(
     checkedStatus: Boolean,
+    id: Int,
     onAddToFavoritesClick: () -> Unit
 ) {
-    val checked = remember { mutableStateOf(checkedStatus) }
     IconToggleButton(
         checked = checkedStatus,
         onCheckedChange = {
-            checked.value = it
             onAddToFavoritesClick()
         },
         enabled = true
     ) {
-        if (checked.value) {
-            Icon(
-                Icons.Filled.ThumbUp,
-                contentDescription = "",
-                tint = MaterialTheme.colorScheme.primary
-            )
-        } else {
-            Icon(
-                Icons.Outlined.ThumbUp,
-                contentDescription = "",
-            )
-        }
+        Icon(
+            imageVector = if (checkedStatus) Icons.Filled.ThumbUp else Icons.Outlined.ThumbUp,
+            contentDescription = "Favorite",
+            tint = if (checkedStatus) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onBackground
+        )
     }
 }

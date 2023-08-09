@@ -28,12 +28,6 @@ class MainScreenViewModel @Inject constructor(
     private val _postCardState = MutableStateFlow(PostCardState())
     val postCardState: StateFlow<PostCardState> = _postCardState.asStateFlow()
 
-    fun setCardId() {
-        val productDataListSize = _productCardState.value.productData.size
-        _productCardState.value = _productCardState.value.copy(
-            cardId = (0..productDataListSize).toList())
-    }
-
     fun onEvent(event: MainScreenEvents) {
         when (event) {
             is MainScreenEvents.AddToCart -> {
@@ -42,20 +36,16 @@ class MainScreenViewModel @Inject constructor(
 
             is MainScreenEvents.AddToFavorites -> {
 
-
-                if (_productCardState.value.isAddToFavoritesChecked) {
-                    _productCardState.value = _productCardState.value.copy( isAddToFavoritesChecked = false )
-                    Log.e("AAA", _productCardState.value.isAddToFavoritesChecked.toString())
-                } else {
-                    _productCardState.value = _productCardState.value.copy(
-                        isAddToFavoritesChecked = true
-                    )
-                }
+                _productCardState.value = _productCardState.value.copy(
+                    isAddToFavoritesChecked = _productCardState.value.isAddToFavoritesChecked.toMutableList()
+                        .also { it.add(event.id) }
+                )
                 Log.e("AAA", "Add to favorites button clicked!")
             }
 
             is MainScreenEvents.CardClick -> {
-                Log.e("AAA", "Card clicked!")
+                val cardId = event.id
+                Log.e("AAA", "Card $cardId clicked!")
             }
 
             is MainScreenEvents.ReactionClick -> {
@@ -90,7 +80,6 @@ class MainScreenViewModel @Inject constructor(
                     repository.getPost()
                 } catch (e: Exception) {
                     value = value.copy(isLoading = false)
-                    Log.e("AAA", "ERROR!")
                     null
                 }
 
@@ -113,7 +102,6 @@ class MainScreenViewModel @Inject constructor(
                 val products = try {
                     repository.getProductsData()
                 } catch (e: Exception) {
-                    Log.e("AAA", "ERROR!")
                     emptyList()
                 }
 

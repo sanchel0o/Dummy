@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Scaffold
@@ -23,7 +23,6 @@ import com.sanchelo.dummy.presentation.main_screen.screen.compose.MenuButton
 import com.sanchelo.dummy.presentation.main_screen.screen.compose.PostCard
 import com.sanchelo.dummy.presentation.main_screen.screen.compose.ProductCard
 import com.sanchelo.dummy.presentation.main_screen.screen.compose.SearchButton
-import kotlin.random.Random
 import androidx.compose.foundation.layout.fillMaxSize as fillMaxSize1
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
@@ -40,55 +39,69 @@ fun MainScreen() {
             modifier = Modifier.fillMaxWidth()
         )
     } else {
-            Scaffold(
+        Scaffold(
+            modifier = Modifier
+                .fillMaxSize1()
+                .nestedScroll(topAppBarScrollBehavior.nestedScrollConnection),
+            topBar = {
+                TopAppBar(
+                    title = { },
+                    navigationIcon = { MenuButton(onMenuButtonClick = {}) },
+                    actions = {
+                        SearchButton(onSearchButtonClick = {})
+                        FilterButton(onFilterButtonClick = {})
+                    },
+                    scrollBehavior = topAppBarScrollBehavior
+                )
+            }) { values ->
+            LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize1()
-                    .nestedScroll(topAppBarScrollBehavior.nestedScrollConnection),
-                topBar = {
-                    TopAppBar(
-                        title = { },
-                        navigationIcon = { MenuButton(onMenuButtonClick = {}) },
-                        actions = {
-                            SearchButton(onSearchButtonClick = {})
-                            FilterButton(onFilterButtonClick = {})
-                        },
-                        scrollBehavior = topAppBarScrollBehavior
+                    .fillMaxWidth()
+                    .consumeWindowInsets(values),
+                contentPadding = values
+            ) {
+                item {
+                    PostCard(
+                        title = postCardState.postData?.title ?: "No post",
+                        body = postCardState.postData?.body ?: "Post body",
+                        reactions = postCardState.postData?.reactions ?: 0,
+                        tags = postCardState.postData?.tags ?: emptyList(),
+                        onLikeClick = { viewModel.onEvent(MainScreenEvents.ReactionClick) },
+                        checkedStatus = postCardState.isLikeChecked
                     )
-                }) { values ->
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .consumeWindowInsets(values),
-                    contentPadding = values
-                ) {
-                    item {
-                        PostCard(
-                            title = postCardState.postData?.title ?: "No post",
-                            body = postCardState.postData?.body ?: "Post body",
-                            reactions = postCardState.postData?.reactions ?: 0,
-                            tags = postCardState.postData?.tags ?: emptyList(),
-                            onLikeClick = { viewModel.onEvent(MainScreenEvents.ReactionClick) },
-                            checkedStatus = postCardState.isLikeChecked
-                        )
-                    }
-                    items(
-                        items = productCardState.productData,
-                        key = { it.id }
-                    ) { item ->
-                        ProductCard(
-                            cardId = item.id,
-                            title = item.title,
-                            brand = item.brand,
-                            imageUrl = item.images[0],
-                            price = item.price,
-                            description = item.description,
-                            onClicked = { viewModel.onEvent(MainScreenEvents.CardClick) },
-                            favoritesCheckedStatus = productCardState.isAddToFavoritesChecked,
-                            onAddToFavoritesClick = { viewModel.onEvent(MainScreenEvents.AddToFavorites)}
-                        )
-                    }
+                }
+                itemsIndexed(
+                    items = productCardState.productData
+                ) { index, item ->
+                    ProductCard(
+                        cardId = item.id,
+                        title = item.title,
+                        brand = item.brand,
+                        imageUrl = item.images[0],
+                        price = item.price,
+                        description = item.description,
+                        onCardClicked = { viewModel.onEvent(MainScreenEvents.CardClick(index)) },
+                        favoritesCheckedStatus = productCardState.isAddToFavoritesChecked.contains(item.id),
+                        onAddToFavoritesClick = { viewModel.onEvent(MainScreenEvents.AddToFavorites(item.id)) }
+                    )
                 }
             }
+//                items(
+//                    items = productCardState.productData,
+//                    key = { it.id }
+//                ) { item ->
+//                    ProductCard(
+//                        cardId = item.id,
+//                        title = item.title,
+//                        brand = item.brand,
+//                        imageUrl = item.images[0],
+//                        price = item.price,
+//                        description = item.description,
+//                        onClicked = { viewModel.onEvent(MainScreenEvents.CardClick) },
+//                        favoritesCheckedStatus = productCardState.isAddToFavoritesChecked,
+//                        onAddToFavoritesClick = { viewModel.onEvent(MainScreenEvents.AddToFavorites) }
+//                    )
+//                } //       }
         }
-
+    }
 }
