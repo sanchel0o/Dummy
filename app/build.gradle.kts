@@ -64,6 +64,7 @@ dependencies {
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation("androidx.navigation:navigation-compose:2.6.0")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.0-beta01")
+    implementation("io.coil-kt:coil-compose:2.4.0")
 
     implementation("androidx.core:core-splashscreen:1.0.1")
 
@@ -86,7 +87,6 @@ dependencies {
     // Dagger - Hilt
     implementation ("com.google.dagger:hilt-android:2.47")
     kapt ("com.google.dagger:hilt-compiler:2.47")
-    //implementation ("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
     kapt ("androidx.hilt:hilt-compiler:1.0.0")
     implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
 
@@ -96,7 +96,14 @@ dependencies {
     implementation ("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3")
     implementation ("com.squareup.okhttp3:okhttp:5.0.0-alpha.3")
 
-    implementation("io.coil-kt:coil-compose:2.4.0")
+    //Room
+    val room_version = "2.5.2"
+    implementation("androidx.room:room-runtime:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
+    implementation ("androidx.room:room-ktx:$room_version")
+
+
+
 
 }
 

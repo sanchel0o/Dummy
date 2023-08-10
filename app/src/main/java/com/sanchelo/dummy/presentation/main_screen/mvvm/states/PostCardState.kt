@@ -6,4 +6,5 @@ data class PostCardState(
     val isLoading: Boolean = false,
     val postData: PostData? = null,
     val isLikeChecked: Boolean = false,
+    val expanded: Boolean = false
 )

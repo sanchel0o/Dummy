@@ -1,4 +1,4 @@
-package com.sanchelo.dummy.presentation.main_screen.screen.compose
+package com.sanchelo.dummy.presentation.main_screen.screen.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material.icons.outlined.ThumbUp
@@ -14,13 +15,10 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -43,7 +41,9 @@ fun ProductCard(
     description: String,
     onCardClicked: (Int) -> Unit,
     onAddToFavoritesClick: () -> Unit,
-    favoritesCheckedStatus: Boolean
+    favoritesCheckedStatus: Boolean,
+    cartCheckedStatus: Boolean,
+    onAddToCartClick: () -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -67,7 +67,7 @@ fun ProductCard(
                     Description(description)
                 }
             }
-            BottomBlock(price, cardId, favoritesCheckedStatus, onAddToFavoritesClick)
+            BottomBlock(price, favoritesCheckedStatus, onAddToFavoritesClick, cartCheckedStatus, onAddToCartClick)
         }
     }
 }
@@ -117,9 +117,10 @@ fun Description(
 @Composable
 fun BottomBlock(
     price: Int,
-    cardId: Int,
     favoritesCheckedStatus: Boolean,
-    onAddToFavoritesClick: () -> Unit
+    onAddToFavoritesClick: () -> Unit,
+    cartCheckedStatus: Boolean,
+    onAddToCartClick: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -153,26 +154,35 @@ fun BottomBlock(
 
         }
         Row {
-            AddToFavouritesButton(favoritesCheckedStatus, cardId, onAddToFavoritesClick)
-            AddToCartButton()
+            AddToFavouritesButton(favoritesCheckedStatus, onAddToFavoritesClick)
+            AddToCartButton(cartCheckedStatus, onAddToCartClick)
         }
     }
 }
 
 @Composable
-fun AddToCartButton() {
-    IconButton(
-        modifier = Modifier,
-        onClick = { /*TODO*/ }
+fun AddToCartButton(
+    checkedStatus: Boolean,
+    onAddToCartClick: () -> Unit
+) {
+    IconToggleButton(
+        checked = checkedStatus,
+        onCheckedChange = {
+            onAddToCartClick()
+        },
+        enabled = true
     ) {
-        Icon(Icons.Outlined.ShoppingCart, contentDescription = "Add to cart")
+        Icon(
+            imageVector = if (checkedStatus) Icons.Filled.ShoppingCart else Icons.Outlined.ShoppingCart,
+            contentDescription = "Favorite",
+            tint = if (checkedStatus) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onBackground
+        )
     }
 }
 
 @Composable
 fun AddToFavouritesButton(
     checkedStatus: Boolean,
-    id: Int,
     onAddToFavoritesClick: () -> Unit
 ) {
     IconToggleButton(
@@ -185,7 +195,7 @@ fun AddToFavouritesButton(
         Icon(
             imageVector = if (checkedStatus) Icons.Filled.ThumbUp else Icons.Outlined.ThumbUp,
             contentDescription = "Favorite",
-            tint = if (checkedStatus) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onBackground
+            tint = if (checkedStatus) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onBackground
         )
     }
 }

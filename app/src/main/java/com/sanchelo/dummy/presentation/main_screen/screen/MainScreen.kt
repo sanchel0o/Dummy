@@ -18,11 +18,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sanchelo.dummy.presentation.main_screen.mvvm.events.MainScreenEvents
 import com.sanchelo.dummy.presentation.main_screen.mvvm.view_models.MainScreenViewModel
-import com.sanchelo.dummy.presentation.main_screen.screen.compose.FilterButton
-import com.sanchelo.dummy.presentation.main_screen.screen.compose.MenuButton
-import com.sanchelo.dummy.presentation.main_screen.screen.compose.PostCard
-import com.sanchelo.dummy.presentation.main_screen.screen.compose.ProductCard
-import com.sanchelo.dummy.presentation.main_screen.screen.compose.SearchButton
+import com.sanchelo.dummy.presentation.main_screen.screen.components.FilterButton
+import com.sanchelo.dummy.presentation.main_screen.screen.components.MenuButton
+import com.sanchelo.dummy.presentation.main_screen.screen.components.PostCard
+import com.sanchelo.dummy.presentation.main_screen.screen.components.ProductCard
+import com.sanchelo.dummy.presentation.main_screen.screen.components.SearchButton
 import androidx.compose.foundation.layout.fillMaxSize as fillMaxSize1
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
@@ -67,7 +67,9 @@ fun MainScreen() {
                         reactions = postCardState.postData?.reactions ?: 0,
                         tags = postCardState.postData?.tags ?: emptyList(),
                         onLikeClick = { viewModel.onEvent(MainScreenEvents.ReactionClick) },
-                        checkedStatus = postCardState.isLikeChecked
+                        checkedStatus = postCardState.isLikeChecked,
+                        onExpandClick = { viewModel.onEvent(MainScreenEvents.ExpandPostCardClick)},
+                        expandState = postCardState.expanded
                     )
                 }
                 itemsIndexed(
@@ -80,9 +82,11 @@ fun MainScreen() {
                         imageUrl = item.images[0],
                         price = item.price,
                         description = item.description,
-                        onCardClicked = { viewModel.onEvent(MainScreenEvents.CardClick(index)) },
+                        onCardClicked = { viewModel.onEvent(MainScreenEvents.CardClick(item.id)) },
                         favoritesCheckedStatus = productCardState.isAddToFavoritesChecked.contains(item.id),
-                        onAddToFavoritesClick = { viewModel.onEvent(MainScreenEvents.AddToFavorites(item.id)) }
+                        onAddToFavoritesClick = { viewModel.onEvent(MainScreenEvents.AddToFavorites(item.id)) },
+                        cartCheckedStatus = productCardState.isAddToCartChecked.contains(item.id),
+                        onAddToCartClick = {viewModel.onEvent(MainScreenEvents.AddToCart(item.id))}
                     )
                 }
             }

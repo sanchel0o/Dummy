@@ -18,7 +18,6 @@ import javax.inject.Inject
 @HiltViewModel
 class MainScreenViewModel @Inject constructor(
     private val repository: ProductsRepository,
-
     private val getProductDataUseCase: GetProductDataUseCase
 ) : ViewModel() {
 
@@ -31,21 +30,49 @@ class MainScreenViewModel @Inject constructor(
     fun onEvent(event: MainScreenEvents) {
         when (event) {
             is MainScreenEvents.AddToCart -> {
-                Log.e("AAA", "Add to cart button clicked!")
+                if (event.id in _productCardState.value.isAddToCartChecked) {
+                    _productCardState.value = _productCardState.value.copy(
+                        isAddToCartChecked = _productCardState
+                            .value
+                            .isAddToCartChecked
+                            .toMutableList()
+                            .also { it.remove(event.id) }
+                    )
+                } else {
+                    _productCardState.value = _productCardState.value.copy(
+                        isAddToCartChecked = _productCardState
+                            .value
+                            .isAddToCartChecked
+                            .toMutableList()
+                            .also { it.add(event.id) }
+
+                    )
+                }
             }
 
             is MainScreenEvents.AddToFavorites -> {
+                if (event.id in _productCardState.value.isAddToFavoritesChecked) {
+                    _productCardState.value = _productCardState.value.copy(
+                        isAddToFavoritesChecked = _productCardState
+                            .value
+                            .isAddToFavoritesChecked
+                            .toMutableList()
+                            .also { it.remove(event.id) }
+                    )
+                } else {
+                    _productCardState.value = _productCardState.value.copy(
+                        isAddToFavoritesChecked = _productCardState
+                            .value
+                            .isAddToFavoritesChecked
+                            .toMutableList()
+                            .also { it.add(event.id) }
 
-                _productCardState.value = _productCardState.value.copy(
-                    isAddToFavoritesChecked = _productCardState.value.isAddToFavoritesChecked.toMutableList()
-                        .also { it.add(event.id) }
-                )
-                Log.e("AAA", "Add to favorites button clicked!")
+                    )
+                }
             }
 
             is MainScreenEvents.CardClick -> {
-                val cardId = event.id
-                Log.e("AAA", "Card $cardId clicked!")
+
             }
 
             is MainScreenEvents.ReactionClick -> {
@@ -64,6 +91,19 @@ class MainScreenViewModel @Inject constructor(
                         )
                     }
                 }
+            }
+
+            is MainScreenEvents.ExpandPostCardClick -> {
+                if (_postCardState.value.expanded) {
+                    _postCardState.value = _postCardState.value.copy(
+                        expanded = false
+                    )
+                } else {
+                    _postCardState.value = _postCardState.value.copy(
+                        expanded = true
+                    )
+                }
+
             }
         }
     }
@@ -116,6 +156,5 @@ class MainScreenViewModel @Inject constructor(
     init {
         getProductsData()
         getPostData()
-        Log.e("AAA", _productCardState.value.cardId.toString())
     }
 }

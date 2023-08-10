@@ -1,4 +1,4 @@
-package com.sanchelo.dummy.presentation.main_screen.screen.compose
+package com.sanchelo.dummy.presentation.main_screen.screen.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.size
