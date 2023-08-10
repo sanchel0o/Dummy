@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.view.WindowCompat
 import com.sanchelo.dummy.presentation.core.DummyTheme
-import com.sanchelo.dummy.presentation.main_screen.screen.MainScreen
+import com.sanchelo.dummy.presentation.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -16,9 +16,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
+        //installSplashScreen()
+
         setContent {
             DummyTheme {
-                MainScreen()
+                Navigation()
+                //MainScreen()
+                //Navigation()
             }
         }
     }

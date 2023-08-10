@@ -69,7 +69,9 @@ class MainScreenViewModel @Inject constructor(
             }
 
             is MainScreenEvents.CardClick -> {
-
+                _postCardState.value = _postCardState.value.copy(
+                    
+                )
             }
 
             is MainScreenEvents.ReactionClick -> {

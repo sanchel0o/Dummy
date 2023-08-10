@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import com.sanchelo.dummy.presentation.main_screen.mvvm.events.MainScreenEvents
 import com.sanchelo.dummy.presentation.main_screen.mvvm.view_models.MainScreenViewModel
 import com.sanchelo.dummy.presentation.main_screen.screen.components.FilterButton
@@ -23,12 +24,16 @@ import com.sanchelo.dummy.presentation.main_screen.screen.components.MenuButton
 import com.sanchelo.dummy.presentation.main_screen.screen.components.PostCard
 import com.sanchelo.dummy.presentation.main_screen.screen.components.ProductCard
 import com.sanchelo.dummy.presentation.main_screen.screen.components.SearchButton
+import com.sanchelo.dummy.presentation.navigation.Screens
 import androidx.compose.foundation.layout.fillMaxSize as fillMaxSize1
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    navController: NavController
+) {
     val viewModel: MainScreenViewModel = hiltViewModel()
+
     val productCardState by viewModel.productCardState.collectAsStateWithLifecycle()
     val postCardState by viewModel.postCardState.collectAsStateWithLifecycle()
 
@@ -82,7 +87,10 @@ fun MainScreen() {
                         imageUrl = item.images[0],
                         price = item.price,
                         description = item.description,
-                        onCardClicked = { viewModel.onEvent(MainScreenEvents.CardClick(item.id)) },
+                        onCardClicked = {
+                            navController.navigate(Screens.DetailScreen.route)
+                            viewModel.onEvent(MainScreenEvents.CardClick(item.id))
+                        },
                         favoritesCheckedStatus = productCardState.isAddToFavoritesChecked.contains(item.id),
                         onAddToFavoritesClick = { viewModel.onEvent(MainScreenEvents.AddToFavorites(item.id)) },
                         cartCheckedStatus = productCardState.isAddToCartChecked.contains(item.id),
@@ -90,22 +98,6 @@ fun MainScreen() {
                     )
                 }
             }
-//                items(
-//                    items = productCardState.productData,
-//                    key = { it.id }
-//                ) { item ->
-//                    ProductCard(
-//                        cardId = item.id,
-//                        title = item.title,
-//                        brand = item.brand,
-//                        imageUrl = item.images[0],
-//                        price = item.price,
-//                        description = item.description,
-//                        onClicked = { viewModel.onEvent(MainScreenEvents.CardClick) },
-//                        favoritesCheckedStatus = productCardState.isAddToFavoritesChecked,
-//                        onAddToFavoritesClick = { viewModel.onEvent(MainScreenEvents.AddToFavorites) }
-//                    )
-//                } //       }
         }
     }
 }
