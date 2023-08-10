@@ -40,9 +40,9 @@ fun ProductCard(
     price: Int,
     description: String,
     onCardClicked: (Int) -> Unit,
+    cartCheckedStatus: Boolean,
     onAddToFavoritesClick: () -> Unit,
     favoritesCheckedStatus: Boolean,
-    cartCheckedStatus: Boolean,
     onAddToCartClick: () -> Unit
 ) {
     Card(
@@ -55,7 +55,7 @@ fun ProductCard(
             onCardClicked(cardId)
         },
     ) {
-        Column(modifier = Modifier.padding(8.dp)) {
+        Column(modifier = Modifier.padding(4.dp)) {
             Row {
                 ImageHeader(imageUrl)
                 Column(

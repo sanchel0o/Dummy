@@ -1,4 +1,4 @@
-package com.sanchelo.dummy.data.model
+package com.sanchelo.dummy.data.model.remote
 
 data class PostDto(
     val body: String,

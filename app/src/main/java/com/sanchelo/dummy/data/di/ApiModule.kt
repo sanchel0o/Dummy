@@ -1,6 +1,6 @@
 package com.sanchelo.dummy.data.di
 
-import com.sanchelo.dummy.data.api.ProductsAPI
+import com.sanchelo.dummy.data.api.DummyAPI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -8,7 +8,6 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Named
 import javax.inject.Singleton
 
 
@@ -19,12 +18,12 @@ object ApiModule {
 
     @Provides //provides the dependency
     @Singleton //How many of these dependencies we have. Singleton for a single instance for the whole lifetime of App
-    fun provideProductsApi(client: OkHttpClient): ProductsAPI {
+    fun provideProductsApi(client: OkHttpClient): DummyAPI {
         return Retrofit.Builder()
             .baseUrl("https://dummyjson.com")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(ProductsAPI::class.java)
+            .create(DummyAPI::class.java)
     }
 }

@@ -1,11 +1,11 @@
 package com.sanchelo.dummy.data.api
 
-import com.sanchelo.dummy.data.model.PostDto
-import com.sanchelo.dummy.data.model.ProductsDto
+import com.sanchelo.dummy.data.model.remote.PostDto
+import com.sanchelo.dummy.data.model.remote.ProductsDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface ProductsAPI{
+interface DummyAPI{
     @GET("/products")
     suspend fun getAllProducts(): ProductsDto
 

@@ -1,9 +1,8 @@
 package com.sanchelo.dummy.presentation.main_screen.mvvm.view_models
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sanchelo.dummy.domain.repository.ProductsRepository
+import com.sanchelo.dummy.domain.repository.DummyRemoteRepository
 import com.sanchelo.dummy.domain.use_cases.GetProductDataUseCase
 import com.sanchelo.dummy.presentation.main_screen.mvvm.events.MainScreenEvents
 import com.sanchelo.dummy.presentation.main_screen.mvvm.states.PostCardState
@@ -17,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainScreenViewModel @Inject constructor(
-    private val repository: ProductsRepository,
+    private val repository: DummyRemoteRepository,
     private val getProductDataUseCase: GetProductDataUseCase
 ) : ViewModel() {
 
@@ -45,7 +44,6 @@ class MainScreenViewModel @Inject constructor(
                             .isAddToCartChecked
                             .toMutableList()
                             .also { it.add(event.id) }
-
                     )
                 }
             }
@@ -66,7 +64,6 @@ class MainScreenViewModel @Inject constructor(
                             .isAddToFavoritesChecked
                             .toMutableList()
                             .also { it.add(event.id) }
-
                     )
                 }
             }
@@ -95,22 +92,17 @@ class MainScreenViewModel @Inject constructor(
 
             is MainScreenEvents.ExpandPostCardClick -> {
                 if (_postCardState.value.expanded) {
-                    _postCardState.value = _postCardState.value.copy(
-                        expanded = false
-                    )
+                    _postCardState.value = _postCardState.value.copy(expanded = false)
                 } else {
-                    _postCardState.value = _postCardState.value.copy(
-                        expanded = true
-                    )
+                    _postCardState.value = _postCardState.value.copy(expanded = true)
                 }
-
             }
         }
     }
 
     private fun getPostData() {
         viewModelScope.launch {
-            with(_postCardState) {
+            with (_postCardState) {
                 value = value.copy(
                     postData = null,
                     isLoading = true,

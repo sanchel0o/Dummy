@@ -61,14 +61,17 @@ fun PostCard(
             .clickable {  },
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.tertiary),
     ) {
-        Column(
-            // modifier = Modifier.padding(5.dp)
-        ) {
+        Column {
             UserInfo(userImage = "")
             PostTitle(title)
             PostBody(expandState, body)
-            TextButton(onClick = { onExpandClick() }) {
-                Text(text = "SHOW MORE")
+            TextButton(
+                onClick = { onExpandClick() }
+            ) {
+                Text(
+                    fontSize = 12.sp,
+                    text = "SHOW MORE"
+                )
             }
             Divider(color = MaterialTheme.colorScheme.background)
             PostInfo(reactions, tags, onLikeClick, checkedStatus)
