@@ -24,7 +24,7 @@ import com.sanchelo.dummy.presentation.main_screen.screen.components.MenuButton
 import com.sanchelo.dummy.presentation.main_screen.screen.components.PostCard
 import com.sanchelo.dummy.presentation.main_screen.screen.components.ProductCard
 import com.sanchelo.dummy.presentation.main_screen.screen.components.SearchButton
-import com.sanchelo.dummy.presentation.navigation.Screens
+import com.sanchelo.dummy.presentation.navigation.MainScreens
 import androidx.compose.foundation.layout.fillMaxSize as fillMaxSize1
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
@@ -88,7 +88,7 @@ fun MainScreen(
                         price = item.price,
                         description = item.description,
                         onCardClicked = {
-                            navController.navigate(Screens.DetailScreen.route)
+                            navController.navigate(MainScreens.DetailScreen.route)
                             viewModel.onEvent(MainScreenEvents.CardClick(item.id))
                         },
                         favoritesCheckedStatus = productCardState.isAddToFavoritesChecked.contains(item.id),
