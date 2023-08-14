@@ -13,7 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.sanchelo.dummy.R
+import org.jetbrains.annotations.Async
 
 @Composable
 fun TopBarLogo() {
@@ -50,4 +52,9 @@ fun FilterButton(
     IconButton(onClick = { onFilterButtonClick() }) {
         Icon(Icons.Outlined.List, contentDescription = "")
     }
+}
+
+@Composable
+fun ProfileImage() {
+
 }

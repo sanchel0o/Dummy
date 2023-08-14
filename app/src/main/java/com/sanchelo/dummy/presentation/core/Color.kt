@@ -1,5 +1,6 @@
 package com.sanchelo.dummy.presentation.core
 
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 val White = Color(0xFFFFFBFE)
@@ -11,12 +12,15 @@ val SemiBlack = Color(0xFFE3E2E6)
 val LightPink = Color(0xFFF7C8E0)
 val DarkGray = Color(0xFF1A1C1E)
 val DeepBlue = Color(0xFF001B3C)
-val SkyBlue = Color(0xFFB4E4FF)
+val secondary = Color(0xFFB4E4FF)
 val DarkBlue = Color(0xFF0B2447)
 val PaleBlue = Color(0xFFD5E3FF)
 val VioletBlue = Color(0xFF576CBC)
-val LightBlue = Color(0xFF95BDFF)
+val primary = Color(0xFF95BDFF)
 val DeepDarkBlue = Color(0xFF001E2B)
-val Green = Color(0xFF006B5E)
+val tertiary = Color(0xFF006B5E)
 val PaleGreen = Color(0xFF76F8E1)
 val GrassGreen = Color(0xFF00201B)
+
+val backgroundGradient = Brush.linearGradient(listOf(primary, secondary, tertiary))
+

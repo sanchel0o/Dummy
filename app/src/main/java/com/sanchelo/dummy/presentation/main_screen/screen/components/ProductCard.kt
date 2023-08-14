@@ -1,5 +1,6 @@
 package com.sanchelo.dummy.presentation.main_screen.screen.components
 
+import android.graphics.Color.alpha
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

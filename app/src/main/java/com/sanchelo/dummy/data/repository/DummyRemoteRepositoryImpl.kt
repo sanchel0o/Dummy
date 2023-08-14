@@ -1,10 +1,13 @@
 package com.sanchelo.dummy.data.repository
 
+import com.sanchelo.dummy.auth.AuthRequest
 import com.sanchelo.dummy.data.api.DummyAPI
 import com.sanchelo.dummy.data.mappers.toPostData
 import com.sanchelo.dummy.data.mappers.toProductDataList
+import com.sanchelo.dummy.data.mappers.toUserData
 import com.sanchelo.dummy.domain.model.PostData
 import com.sanchelo.dummy.domain.model.ProductData
+import com.sanchelo.dummy.domain.model.UserData
 import com.sanchelo.dummy.domain.repository.DummyRemoteRepository
 import javax.inject.Inject
 import kotlin.random.Random
@@ -20,4 +23,8 @@ class DummyRemoteRepositoryImpl @Inject constructor(
         val id = Random.nextInt(1, 50).toString()
         return api.getPost(id).toPostData()
     }
+
+    override suspend fun authRequest(): UserData =
+        api.authRequest(AuthRequest("kminchelle", "0lelplR")).toUserData()
+
 }

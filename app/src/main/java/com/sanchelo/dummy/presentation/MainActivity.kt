@@ -3,6 +3,7 @@ package com.sanchelo.dummy.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import com.sanchelo.dummy.presentation.core.DummyTheme
 import com.sanchelo.dummy.presentation.navigation.Navigation
