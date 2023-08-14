@@ -1,4 +1,4 @@
-package com.sanchelo.dummy.presentation.main_screen.mvvm.states
+package com.sanchelo.dummy.presentation.main_screen.states
 
 import com.sanchelo.dummy.domain.model.PostData
 

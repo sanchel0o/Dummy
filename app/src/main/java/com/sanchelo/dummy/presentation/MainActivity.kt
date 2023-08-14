@@ -21,8 +21,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             DummyTheme {
                 Navigation()
-                //MainScreen()
-                //Navigation()
             }
         }
     }

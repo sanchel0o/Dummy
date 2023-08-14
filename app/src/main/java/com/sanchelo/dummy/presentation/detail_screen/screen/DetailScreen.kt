@@ -1,4 +1,4 @@
-package com.sanchelo.dummy.presentation.detail_screen
+package com.sanchelo.dummy.presentation.detail_screen.screen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,16 +13,17 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.sanchelo.dummy.presentation.detail_screen.DetailScreenViewModel
 import com.sanchelo.dummy.presentation.main_screen.screen.components.FilterButton
-import com.sanchelo.dummy.presentation.navigation.MainScreens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 
 fun DetailScreen(
-    navController: NavController,
+    navigateBack: () -> Unit,
 ) {
+    val viewModel: DetailScreenViewModel = hiltViewModel()
     Scaffold(
         modifier = Modifier
             .fillMaxSize(),
@@ -31,8 +32,7 @@ fun DetailScreen(
                 title = { },
                 navigationIcon = {
                     IconButton(onClick = {
-                        navController.navigate(MainScreens.MainScreen.route)
-                        navController.popBackStack()
+                        navigateBack()
                     }
                     ) {
                         Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Go Back")

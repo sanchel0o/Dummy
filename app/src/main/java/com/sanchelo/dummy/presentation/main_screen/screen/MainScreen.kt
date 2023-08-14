@@ -16,21 +16,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
-import com.sanchelo.dummy.presentation.main_screen.mvvm.events.MainScreenEvents
-import com.sanchelo.dummy.presentation.main_screen.mvvm.view_models.MainScreenViewModel
+import com.sanchelo.dummy.presentation.main_screen.events.MainScreenEvents
+import com.sanchelo.dummy.presentation.main_screen.view_model.MainScreenViewModel
 import com.sanchelo.dummy.presentation.main_screen.screen.components.FilterButton
 import com.sanchelo.dummy.presentation.main_screen.screen.components.MenuButton
 import com.sanchelo.dummy.presentation.main_screen.screen.components.PostCard
 import com.sanchelo.dummy.presentation.main_screen.screen.components.ProductCard
 import com.sanchelo.dummy.presentation.main_screen.screen.components.SearchButton
-import com.sanchelo.dummy.presentation.navigation.MainScreens
 import androidx.compose.foundation.layout.fillMaxSize as fillMaxSize1
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun MainScreen(
-    navController: NavController
+    navigateToDetailScreen: () -> Unit,
 ) {
     val viewModel: MainScreenViewModel = hiltViewModel()
 
@@ -88,7 +86,7 @@ fun MainScreen(
                         price = item.price,
                         description = item.description,
                         onCardClicked = {
-                            navController.navigate(MainScreens.DetailScreen.route)
+                            navigateToDetailScreen()
                             viewModel.onEvent(MainScreenEvents.CardClick(item.id))
                         },
                         favoritesCheckedStatus = productCardState.isAddToFavoritesChecked.contains(item.id),

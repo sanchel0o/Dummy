@@ -1,12 +1,13 @@
-package com.sanchelo.dummy.presentation.main_screen.mvvm.view_models
+package com.sanchelo.dummy.presentation.main_screen.view_model
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sanchelo.dummy.domain.repository.DummyRemoteRepository
 import com.sanchelo.dummy.domain.use_cases.GetProductDataUseCase
-import com.sanchelo.dummy.presentation.main_screen.mvvm.events.MainScreenEvents
-import com.sanchelo.dummy.presentation.main_screen.mvvm.states.PostCardState
-import com.sanchelo.dummy.presentation.main_screen.mvvm.states.ProductCardState
+import com.sanchelo.dummy.presentation.main_screen.events.MainScreenEvents
+import com.sanchelo.dummy.presentation.main_screen.states.PostCardState
+import com.sanchelo.dummy.presentation.main_screen.states.ProductCardState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -148,5 +149,11 @@ class MainScreenViewModel @Inject constructor(
     init {
         getProductsData()
         getPostData()
+        Log.e("AAA", "VM Created!")
+    }
+
+    override fun onCleared() {
+        Log.e("AAA", "VM Destroyed!")
+        super.onCleared()
     }
 }

@@ -5,6 +5,7 @@ import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.indication
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,6 +29,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -66,7 +68,12 @@ fun PostCard(
             PostTitle(title)
             PostBody(expandState, body)
             TextButton(
-                onClick = { onExpandClick() }
+                modifier = Modifier.alpha(if (!expandState) 1f else 0f),
+
+                enabled = !expandState,
+                onClick = {
+                    onExpandClick()
+                }
             ) {
                 Text(
                     fontSize = 12.sp,
