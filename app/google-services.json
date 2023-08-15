@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "440585532848",
+    "project_id": "dummy-app-o7",
+    "storage_bucket": "dummy-app-o7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:440585532848:android:482b6f6398d4f343675275",
+        "android_client_info": {
+          "package_name": "com.sanchelo.dummy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "440585532848-8qmen36k6s1re6po9n1nlsddu8vkjgm2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdWvMabngkSRB1kdXV_oEXdRlE_GUTHe8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "440585532848-8qmen36k6s1re6po9n1nlsddu8vkjgm2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

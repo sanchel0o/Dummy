@@ -17,12 +17,12 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = DarkBlue,
-    onPrimary = PaleBlue,
+    primary = onSurface,
+    onPrimary = primaryContainer,
     secondary = VioletBlue,
-    onSecondary = White,
-    tertiary = LightPink,
-    onTertiary = DarkBlue,
+    onSecondary = onPrimary,
+    tertiary = onSecondary,
+    onTertiary = onSurface,
     surface = DarkGray,
     onSurface = SemiBlack,
     surfaceVariant = Gray,
@@ -33,34 +33,23 @@ private val DarkColorScheme = darkColorScheme(
 
 private val LightColorScheme = lightColorScheme(
     primary = primary,
-    onPrimary = White,
-    primaryContainer = PaleBlue,
-    onPrimaryContainer = DeepBlue,
+    onPrimary = onPrimary,
+    primaryContainer = primaryContainer,
+    onPrimaryContainer = onPrimaryContainer,
     secondary = secondary,
-    onSecondary = LightPink,
-    onSecondaryContainer = DeepDarkBlue,
+    onSecondary = onSecondary,
+    onSecondaryContainer = onSecondaryContainer,
     tertiary = tertiary,
-    onTertiary = White,
-    tertiaryContainer = PaleGreen,
-    onTertiaryContainer = GrassGreen,
-    surface = White,
-    surfaceTint = White,
-    onSurface = DarkBlue,
-    onSurfaceVariant = DarkBlue,
-    background = White,
-    onBackground = DarkBlue,
-    outline = DarkBlue,
-
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    onTertiary = onPrimary,
+    tertiaryContainer = tertiaryContainer,
+    onTertiaryContainer = onTertiaryContainer,
+    surface = onPrimary,
+    surfaceTint = onPrimary,
+    onSurface = onSurface,
+    onSurfaceVariant = onSurface,
+    background = onPrimary,
+    onBackground = onSurface,
+    outline = onSurface,
 )
 
 @Composable

@@ -3,7 +3,7 @@ package com.sanchelo.dummy.presentation.main_screen.view_model
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sanchelo.dummy.auth.AuthRequest
+import com.google.firebase.ktx.Firebase
 import com.sanchelo.dummy.domain.repository.DummyRemoteRepository
 import com.sanchelo.dummy.domain.use_cases.GetProductDataUseCase
 import com.sanchelo.dummy.presentation.main_screen.events.MainScreenEvents
@@ -71,6 +71,7 @@ class MainScreenViewModel @Inject constructor(
             }
 
             is MainScreenEvents.CardClick -> {
+
                 event.id
             }
 

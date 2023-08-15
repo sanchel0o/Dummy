@@ -4,6 +4,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -102,9 +103,9 @@ dependencies {
     kapt("androidx.room:room-compiler:$room_version")
     implementation ("androidx.room:room-ktx:$room_version")
 
-
-
-
+    //Firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.2.2"))
+    implementation("com.google.firebase:firebase-auth-ktx")
 }
 
 kapt {

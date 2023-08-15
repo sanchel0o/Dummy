@@ -25,6 +25,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sanchelo.dummy.presentation.core.backgroundGradient
 import com.sanchelo.dummy.presentation.main_screen.events.MainScreenEvents
 import com.sanchelo.dummy.presentation.main_screen.screen.components.FilterButton
+import com.sanchelo.dummy.presentation.main_screen.screen.components.LoadingScreen
 import com.sanchelo.dummy.presentation.main_screen.screen.components.MenuButton
 import com.sanchelo.dummy.presentation.main_screen.screen.components.PostCard
 import com.sanchelo.dummy.presentation.main_screen.screen.components.ProductCard
@@ -44,19 +45,10 @@ fun MainScreen(
     val topAppBarScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     if (productCardState.isLoading && postCardState.isLoading) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            LinearProgressIndicator(
-                modifier = Modifier
-            )
-        }
+        LoadingScreen()
     } else {
         Scaffold(
             modifier = Modifier
-                .background(backgroundGradient)
                 .fillMaxSize()
                 .nestedScroll(topAppBarScrollBehavior.nestedScrollConnection),
             topBar = {
