@@ -1,8 +1,5 @@
 package com.sanchelo.dummy.presentation.main_screen.screen
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,23 +7,19 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.LinearProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.sanchelo.dummy.presentation.core.backgroundGradient
 import com.sanchelo.dummy.presentation.main_screen.events.MainScreenEvents
-import com.sanchelo.dummy.presentation.main_screen.screen.components.FilterButton
 import com.sanchelo.dummy.presentation.main_screen.screen.components.LoadingScreen
-import com.sanchelo.dummy.presentation.main_screen.screen.components.MenuButton
 import com.sanchelo.dummy.presentation.main_screen.screen.components.PostCard
 import com.sanchelo.dummy.presentation.main_screen.screen.components.ProductCard
 import com.sanchelo.dummy.presentation.main_screen.screen.components.SearchButton
@@ -42,7 +35,7 @@ fun MainScreen(
     val productCardState by viewModel.productCardState.collectAsStateWithLifecycle()
     val postCardState by viewModel.postCardState.collectAsStateWithLifecycle()
 
-    val topAppBarScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    val topAppBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     if (productCardState.isLoading && postCardState.isLoading) {
         LoadingScreen()
@@ -51,13 +44,12 @@ fun MainScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .nestedScroll(topAppBarScrollBehavior.nestedScrollConnection),
+            containerColor = Color.Transparent,
             topBar = {
                 TopAppBar(
                     title = { },
-                    navigationIcon = {  },
-                    actions = {
-                        SearchButton(onSearchButtonClick = {})
-                    },
+                    navigationIcon = { },
+                    actions = { SearchButton(onSearchButtonClick = {}) },
                     scrollBehavior = topAppBarScrollBehavior
                 )
             }) { values ->
@@ -109,5 +101,6 @@ fun MainScreen(
                 }
             }
         }
+
     }
 }

@@ -10,14 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.sanchelo.dummy.presentation.core.backgroundGradient
 import kotlinx.coroutines.delay
 
 @Composable
 fun LoadingScreen() {
     Box(
-        modifier = Modifier
-            .background(backgroundGradient),
+        modifier = Modifier,
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
