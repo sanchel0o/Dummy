@@ -21,13 +21,14 @@ class LoginCardShape(val size: Float) : Shape {
         return Outline.Generic(
             Path().apply {
 
-                val cornerShape = 48f
-                moveTo(cornerShape, 0f)
+                val cornerShape = 256f
+
+                moveTo(cornerShape / 2, 0f)
                 lineTo(size.width - cornerShape, 0f)
                 arcTo(
                     rect = Rect(
                         Offset(size.width - cornerShape, 0f),
-                        Size(48f, 48f)
+                        Size(cornerShape, cornerShape)
                     ),
                     startAngleDegrees = 270f,
                     sweepAngleDegrees = 90f,
@@ -35,55 +36,19 @@ class LoginCardShape(val size: Float) : Shape {
                 )
                 lineTo(size.width, size.height)
                 lineTo(0f, size.height)
-                lineTo(0f, 0f)
-
-//                lineTo(0f, size.height)
-//                lineTo(size.width, size.height)
-//
-//                lineTo(size.width, 0f)
-
-//                arcTo(
-//                    rect = Rect(
-//                        Offset(0f, 0f),
-//                        Size(size.width, size.height)
-//                    ),
-//                    startAngleDegrees = 0f,
-//                    sweepAngleDegrees = 90f,
-//                    forceMoveTo = false
-//                )
-
-//                lineTo(0f, 0f)
+                lineTo(0f, 0f + cornerShape)
+                arcTo(
+                    rect = Rect(
+                        Offset(0f, 0f),
+                        Size(cornerShape, cornerShape)
+                    ),
+                    startAngleDegrees = 180f,
+                    sweepAngleDegrees = 270f,
+                    forceMoveTo = false
+                )
                 close()
             }
         )
     }
 
-}
-
-class Polygon(val sides: Int, val rotation: Float = 0f) : Shape {
-    override fun createOutline(
-        size: Size,
-        layoutDirection: LayoutDirection,
-        density: Density
-    ): Outline {
-        return Outline.Generic(
-            Path().apply {
-                val radius = if (size.width > size.height) size.width / 2f else size.height / 2f
-                val angle = 2.0 * Math.PI / sides
-                val cx = size.width / 2f
-                val cy = size.height / 2f
-                val r = rotation * (Math.PI / 180)
-                moveTo(
-                    cx + (radius * cos(0.0 + r).toFloat()),
-                    cy + (radius * sin(0.0 + r).toFloat())
-                )
-                for (i in 1 until sides) {
-                    lineTo(
-                        cx + (radius * cos(angle * i + r).toFloat()),
-                        cy + (radius * sin(angle * i + r).toFloat())
-                    )
-                }
-                close()
-            })
-    }
 }

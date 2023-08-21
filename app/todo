@@ -1,0 +1,6 @@
+1. Make navigation between main screen and detailed screen without destroying MainScreenViewModel
+    Shared vm?
+2. Create a login screen. Make app to check if user is logged in or not every time when app starts
+3. Create a database with liked posts, liked products and added to cart products
+4. Configure insets!!!
+5. Make placeholder screen while loading data

@@ -27,6 +27,7 @@ import com.sanchelo.dummy.presentation.login_screen.events.LoginScreenEvents
 import com.sanchelo.dummy.presentation.login_screen.screen.components.DummyImage
 import com.sanchelo.dummy.presentation.login_screen.screen.components.GradientBackground
 import com.sanchelo.dummy.presentation.login_screen.screen.components.LoginButton
+import com.sanchelo.dummy.presentation.login_screen.screen.components.LoginText
 import com.sanchelo.dummy.presentation.login_screen.screen.components.LoginTextField
 import com.sanchelo.dummy.presentation.login_screen.screen.components.PasswordTextField
 
@@ -44,59 +45,65 @@ fun LoginScreen(
                 .fillMaxSize(),
             contentAlignment = Alignment.BottomCenter
         ) {
-
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                shape = LoginCardShape(100f),
-                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surface)
+            Column(
+                modifier = Modifier,
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Column(
-                    modifier = Modifier
-                        .padding(top = 24.dp, start = 12.dp, end = 12.dp, bottom = 24.dp),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
+                DummyImage()
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = LoginCardShape(100f),
+                    colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surface)
                 ) {
-                    DummyImage()
-
-                    Spacer(modifier = Modifier.height(10.dp))
-
-                    LoginTextField(
-                        labelValue = "Login",
-                        value = state.login,
-                        onValueChange = { viewModel.onEvent(LoginScreenEvents.OnLoginChanged(login = it)) },
-                        errorStatus = false
-                    )
-
-                    Spacer(modifier = Modifier.height(10.dp))
-
-                    PasswordTextField(
-                        labelValue = "Password",
-                        value = state.password,
-                        onValueChange = {
-                            viewModel.onEvent(
-                                LoginScreenEvents.OnPasswordChanged(
-                                    password = it
-                                )
-                            )
-                        },
-                        errorStatus = false
-                    )
-
-                    Spacer(modifier = Modifier.height(10.dp))
-
-                    LoginButton(
-                        label = "Login",
-                        isLoginButtonEnabled = true,
-                        onLoginButtonClicked = {
-
-                            //navigateToMainScreen()
-                        }
-                    )
-
-                    TextButton(
-                        onClick = {}
+                    Column(
+                        modifier = Modifier
+                            .padding(top = 24.dp, start = 12.dp, end = 12.dp, bottom = 24.dp),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(text = "Forget password?")
+                        LoginText()
+                        Spacer(modifier = Modifier.height(10.dp))
+                        LoginTextField(
+                            labelValue = "Username",
+                            value = state.login,
+                            onValueChange = {
+                                viewModel.onEvent(
+                                    LoginScreenEvents.OnLoginChanged(login = it)
+                                )
+                            },
+                            errorStatus = false
+                        )
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        PasswordTextField(
+                            labelValue = "Password",
+                            value = state.password,
+                            onValueChange = {
+                                viewModel.onEvent(
+                                    LoginScreenEvents.OnPasswordChanged(password = it)
+                                )
+                            },
+                            errorStatus = false
+                        )
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        LoginButton(
+                            label = "Login",
+                            isLoginButtonEnabled = true,
+                            onLoginButtonClicked = {
+
+                                //navigateToMainScreen()
+                            }
+                        )
+
+                        TextButton(
+                            onClick = {}
+                        ) {
+                            Text(text = "Forget password?")
+                        }
                     }
                 }
             }
