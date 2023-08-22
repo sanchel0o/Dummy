@@ -1,7 +1,11 @@
 package com.sanchelo.dummy.presentation.login_screen.screen.components
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandHorizontally
@@ -17,6 +21,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
 import kotlinx.coroutines.delay
 
 @Composable
@@ -39,4 +44,23 @@ fun LoginScreenAnimation(
     ) {
         content()
     }
+}
+
+@Composable
+fun AnimateImage() {
+
+}
+
+@Composable
+fun AnimateBackgroundColor() {
+    val infiniteTransition = rememberInfiniteTransition(label = "infinite")
+    val color by infiniteTransition.animateColor(
+        initialValue = Color.Green,
+        targetValue = Color.Blue,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1000, easing = LinearEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "color"
+    )
 }

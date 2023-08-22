@@ -42,8 +42,7 @@ fun LoginTextField(
         TextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp, end = 16.dp)
-                .height(64.dp),
+                .padding(start = 16.dp, end = 16.dp),
             label = { Text(text = labelValue) },
             singleLine = true,
             maxLines = 1,

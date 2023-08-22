@@ -8,9 +8,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -45,21 +44,23 @@ fun LoginScreen(
     val state by viewModel.loginScreenState.collectAsStateWithLifecycle()
 
     GradientBackground {
-
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.BottomCenter
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .systemBarsPadding(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
+            Box(modifier = Modifier.weight(1f)) {
                 DummyImage()
+            }
+            Box(modifier = Modifier.weight(1f)) {
+                Spacer(modifier = Modifier.height(20.dp))
                 LoginScreenAnimation {
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
-                            ,
+                            .imePadding(),
                         shape = RoundedCornerShape(topStart = 48.dp, topEnd = 48.dp),
                         elevation = CardDefaults.cardElevation(10.dp),
                         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surface)
@@ -115,7 +116,9 @@ fun LoginScreen(
                         }
 
                         Column(
-                            modifier = Modifier.padding(start = 12.dp, end = 12.dp).systemBarsPadding()
+                            modifier = Modifier
+                                .padding(start = 12.dp, end = 12.dp, bottom = 24.dp)
+                                .systemBarsPadding()
                         ) {
                             LoginButton(
                                 label = "Login",
