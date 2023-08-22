@@ -26,6 +26,8 @@ class MainActivity : ComponentActivity() {
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
+
+
         setContent {
             DummyTheme {
                 Navigation()

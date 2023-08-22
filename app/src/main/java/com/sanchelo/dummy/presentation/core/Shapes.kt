@@ -8,11 +8,8 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
-import androidx.compose.ui.unit.dp
-import kotlin.math.cos
-import kotlin.math.sin
 
-class LoginCardShape(val size: Float) : Shape {
+class LoginCardShape() : Shape {
     override fun createOutline(
         size: Size,
         layoutDirection: LayoutDirection,

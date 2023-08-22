@@ -12,8 +12,8 @@ import com.sanchelo.dummy.R
 @Composable
 fun DummyImage() {
     Image(
-        modifier = Modifier.size(250.dp).padding(16.dp),
-        painter = painterResource(id = R.drawable.splash_logo),
+        modifier = Modifier.size(200.dp),
+        painter = painterResource(id = R.drawable.topbar_logo),
         contentDescription = "")
 
 }
