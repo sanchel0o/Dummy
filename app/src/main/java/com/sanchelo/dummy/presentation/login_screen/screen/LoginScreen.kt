@@ -9,6 +9,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -42,25 +45,29 @@ fun LoginScreen(
     val state by viewModel.loginScreenState.collectAsStateWithLifecycle()
 
     GradientBackground {
-        LoginScreenAnimation {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.BottomCenter
-            ) {
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    DummyImage()
 
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.BottomCenter
+        ) {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                DummyImage()
+                LoginScreenAnimation {
                     Card(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            ,
                         shape = RoundedCornerShape(topStart = 48.dp, topEnd = 48.dp),
                         elevation = CardDefaults.cardElevation(10.dp),
                         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surface)
                     ) {
                         Column(
-                            modifier = Modifier.padding(top = 12.dp).fillMaxWidth(),
+                            modifier = Modifier
+                                .padding(top = 12.dp)
+                                .fillMaxWidth(),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             LoginText()
@@ -97,7 +104,9 @@ fun LoginScreen(
                             Spacer(modifier = Modifier.height(10.dp))
 
                             Row(
-                                modifier = Modifier.fillMaxWidth().padding(start = 12.dp, end = 12.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(start = 12.dp, end = 12.dp),
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 RememberMeButton()
@@ -106,7 +115,7 @@ fun LoginScreen(
                         }
 
                         Column(
-                            modifier = Modifier.padding(start = 12.dp, end = 12.dp)
+                            modifier = Modifier.padding(start = 12.dp, end = 12.dp).systemBarsPadding()
                         ) {
                             LoginButton(
                                 label = "Login",

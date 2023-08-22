@@ -2,6 +2,7 @@ package com.sanchelo.dummy.presentation.login_screen.screen.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandHorizontally
 import androidx.compose.animation.expandVertically
@@ -20,7 +21,8 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun LoginScreenAnimation(
-    content: @Composable () -> Unit) {
+    content: @Composable () -> Unit
+) {
 
     var visible by remember {
         mutableStateOf(false)
@@ -30,7 +32,10 @@ fun LoginScreenAnimation(
     }
     AnimatedVisibility(
         visible = visible,
-        enter = expandVertically()
+        enter = slideInVertically(
+            animationSpec = spring( dampingRatio = 0.8f, stiffness = 100f),
+            initialOffsetY = { 1000 }
+        )
     ) {
         content()
     }
