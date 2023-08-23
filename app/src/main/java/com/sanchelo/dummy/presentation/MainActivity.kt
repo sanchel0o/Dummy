@@ -21,12 +21,8 @@ class MainActivity : ComponentActivity() {
             val splashScreen = installSplashScreen()
             splashScreen.setKeepOnScreenCondition { true }
         }
-
         super.onCreate(savedInstanceState)
-
         WindowCompat.setDecorFitsSystemWindows(window, false)
-
-
 
         setContent {
             DummyTheme {

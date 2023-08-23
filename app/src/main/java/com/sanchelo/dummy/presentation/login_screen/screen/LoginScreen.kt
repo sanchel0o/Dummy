@@ -9,16 +9,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.BottomSheetScaffold
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -49,29 +48,37 @@ fun LoginScreen(
     val state by viewModel.loginScreenState.collectAsStateWithLifecycle()
 
     GradientBackground {
-        Column(
+        Box(
             modifier = Modifier
-                .fillMaxWidth(),
-            verticalArrangement = Arrangement.SpaceBetween,
-            horizontalAlignment = Alignment.CenterHorizontally
+                .fillMaxSize()
+                .imePadding(),
         ) {
-            Box(
-                modifier = Modifier,
-                contentAlignment = Alignment.Center
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .wrapContentSize(Alignment.Center),
             ) {
-                DummyImage()
-            }
-            Box(modifier = Modifier, ) {
+
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    DummyImage()
+                }
+
                 LoginCardAnimation {
                     Card(
-                        modifier = Modifier.fillMaxSize().systemBarsPadding().imePadding(),
+                        modifier = Modifier,
                         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surface),
                         shape = RoundedCornerShape(topStart = 36.dp, topEnd = 36.dp)
                     ) {
                         Column(
                             Modifier
                                 .padding(top = 12.dp, start = 12.dp, end = 12.dp)
-                                .fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
+                                .fillMaxWidth(),
+                            horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             LoginText()
 
@@ -107,18 +114,23 @@ fun LoginScreen(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(start = 12.dp, end = 12.dp),
+                                verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 RememberMeButton()
                                 ForgetPasswordButton()
                             }
-                            LoginButton(
-                                label = "Login",
-                                isLoginButtonEnabled = true,
-                                onLoginButtonClicked = {
-                                    //navigateToMainScreen()
-                                }
-                            )
+                            Column(
+                                modifier = Modifier.fillMaxWidth().navigationBarsPadding()
+                            ) {
+                                LoginButton(
+                                    label = "Login",
+                                    isLoginButtonEnabled = true,
+                                    onLoginButtonClicked = {
+                                        //navigateToMainScreen()
+                                    }
+                                )
+                            }
                         }
                     }
                 }
@@ -128,9 +140,8 @@ fun LoginScreen(
 }
 
 
-
 @Composable
-fun LoginFields() {
+fun LoginCard() {
 
 }
 

@@ -42,7 +42,9 @@ val outlineDark = Color(0xFFC0C9CC)
 val VioletBlue = Color(0xFF576CBC)
 
 
-
+//Gradient colors
 val backgroundGradientLight = Brush.linearGradient(listOf(primaryLight, secondaryLight, tertiaryLight))
 val backgroundGradientDark = Brush.linearGradient(listOf(primaryDark, secondaryDark, tertiaryDark))
+val loginButtonGradientColor = ""
+val loginTextGradienColor = Brush.linearGradient(listOf(primaryLight, VioletBlue, tertiaryDark))
 
