@@ -17,6 +17,7 @@ val tertiaryContainerLight = Color(0xFF76F8E1)
 val onTertiaryContainerLight = Color(0xFF00201B)
 val onSurfaceLight = Color(0xFF0B2447)
 val outlineLight = Color(0xFFC0C9CC)
+val surfaceLight = Color(0xFFFFFBFE)
 
 //Dark Color Scheme
 val primaryDark = Color(0xFFAAC7FF)

@@ -12,9 +12,13 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.BottomSheetScaffold
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -29,12 +33,13 @@ import com.sanchelo.dummy.presentation.login_screen.screen.components.DummyImage
 import com.sanchelo.dummy.presentation.login_screen.screen.components.ForgetPasswordButton
 import com.sanchelo.dummy.presentation.login_screen.screen.components.GradientBackground
 import com.sanchelo.dummy.presentation.login_screen.screen.components.LoginButton
-import com.sanchelo.dummy.presentation.login_screen.screen.components.LoginScreenAnimation
+import com.sanchelo.dummy.presentation.login_screen.screen.components.LoginCardAnimation
 import com.sanchelo.dummy.presentation.login_screen.screen.components.LoginText
 import com.sanchelo.dummy.presentation.login_screen.screen.components.LoginTextField
 import com.sanchelo.dummy.presentation.login_screen.screen.components.PasswordTextField
 import com.sanchelo.dummy.presentation.login_screen.screen.components.RememberMeButton
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun LoginScreen(
     //navigateToMainScreen: () -> Unit
@@ -46,38 +51,32 @@ fun LoginScreen(
     GradientBackground {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .systemBarsPadding(),
-            verticalArrangement = Arrangement.Center,
+                .fillMaxWidth(),
+            verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Box(modifier = Modifier.weight(1f)) {
+            Box(
+                modifier = Modifier,
+                contentAlignment = Alignment.Center
+            ) {
                 DummyImage()
             }
-            Box(modifier = Modifier.weight(1f)) {
-                Spacer(modifier = Modifier.height(20.dp))
-                LoginScreenAnimation {
+            Box(modifier = Modifier, ) {
+                LoginCardAnimation {
                     Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .imePadding(),
-                        shape = RoundedCornerShape(topStart = 48.dp, topEnd = 48.dp),
-                        elevation = CardDefaults.cardElevation(10.dp),
-                        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surface)
+                        modifier = Modifier.fillMaxSize().systemBarsPadding().imePadding(),
+                        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surface),
+                        shape = RoundedCornerShape(topStart = 36.dp, topEnd = 36.dp)
                     ) {
                         Column(
-                            modifier = Modifier
-                                .padding(top = 12.dp)
-                                .fillMaxWidth(),
-                            horizontalAlignment = Alignment.CenterHorizontally
+                            Modifier
+                                .padding(top = 12.dp, start = 12.dp, end = 12.dp)
+                                .fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             LoginText()
-                            Spacer(modifier = Modifier.height(10.dp))
-                        }
 
-                        Column(
-                            modifier = Modifier.padding(start = 12.dp, end = 12.dp)
-                        ) {
+                            Spacer(modifier = Modifier.height(10.dp))
+
                             LoginTextField(
                                 labelValue = "Username",
                                 value = state.login,
@@ -113,13 +112,6 @@ fun LoginScreen(
                                 RememberMeButton()
                                 ForgetPasswordButton()
                             }
-                        }
-
-                        Column(
-                            modifier = Modifier
-                                .padding(start = 12.dp, end = 12.dp, bottom = 24.dp)
-                                .systemBarsPadding()
-                        ) {
                             LoginButton(
                                 label = "Login",
                                 isLoginButtonEnabled = true,
@@ -135,6 +127,12 @@ fun LoginScreen(
     }
 }
 
+
+
+@Composable
+fun LoginFields() {
+
+}
 
 @Preview(showBackground = true)
 @Composable

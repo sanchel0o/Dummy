@@ -8,11 +8,7 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.expandHorizontally
-import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -20,17 +16,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
-import kotlinx.coroutines.delay
 
 @Composable
-fun LoginScreenAnimation(
+fun LoginCardAnimation(
     content: @Composable () -> Unit
 ) {
 
     var visible by remember {
-        mutableStateOf(false)
+        mutableStateOf(true)
     }
     LaunchedEffect(key1 = visible) {
         visible = true
@@ -39,8 +33,8 @@ fun LoginScreenAnimation(
         visible = visible,
         enter = slideInVertically(
             animationSpec = spring( dampingRatio = 0.8f, stiffness = 100f),
-            initialOffsetY = { 1000 }
-        )
+            initialOffsetY = { fullHeight -> fullHeight }
+        ) + fadeIn()
     ) {
         content()
     }
