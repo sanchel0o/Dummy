@@ -11,10 +11,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -38,7 +37,6 @@ import com.sanchelo.dummy.presentation.login_screen.screen.components.LoginTextF
 import com.sanchelo.dummy.presentation.login_screen.screen.components.PasswordTextField
 import com.sanchelo.dummy.presentation.login_screen.screen.components.RememberMeButton
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun LoginScreen(
     //navigateToMainScreen: () -> Unit
@@ -65,7 +63,7 @@ fun LoginScreen(
                         .fillMaxWidth(),
                     contentAlignment = Alignment.Center
                 ) {
-                    DummyImage()
+                    //DummyImage()
                 }
 
                 LoginCardAnimation {
@@ -142,7 +140,6 @@ fun LoginScreen(
 
 @Composable
 fun LoginCard() {
-
 }
 
 @Preview(showBackground = true)

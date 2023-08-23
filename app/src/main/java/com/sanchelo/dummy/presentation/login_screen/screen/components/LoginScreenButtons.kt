@@ -9,13 +9,17 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import com.sanchelo.dummy.presentation.core.VioletBlue
 
 @Composable
 fun RememberMeButton() {
@@ -23,10 +27,17 @@ fun RememberMeButton() {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Checkbox(
+            colors = CheckboxDefaults.colors(
+                checkedColor = MaterialTheme.colorScheme.primary,
+                uncheckedColor = VioletBlue
+            ),
             checked = false,
             onCheckedChange = {},
         )
         Text(
+            style = TextStyle(
+                color = VioletBlue
+            ),
             text = "Remember me"
         )
     }
