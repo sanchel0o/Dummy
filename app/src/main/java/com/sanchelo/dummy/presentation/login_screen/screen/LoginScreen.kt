@@ -30,19 +30,12 @@ import com.sanchelo.dummy.presentation.login_screen.screen.components.DummyImage
 import com.sanchelo.dummy.presentation.login_screen.screen.components.ForgetPasswordButton
 import com.sanchelo.dummy.presentation.login_screen.screen.components.GradientBackground
 import com.sanchelo.dummy.presentation.login_screen.screen.components.LoginButton
+import com.sanchelo.dummy.presentation.login_screen.screen.components.LoginCard
 import com.sanchelo.dummy.presentation.login_screen.screen.components.LoginCardAnimation
 import com.sanchelo.dummy.presentation.login_screen.screen.components.LoginText
 import com.sanchelo.dummy.presentation.login_screen.screen.components.LoginTextField
 import com.sanchelo.dummy.presentation.login_screen.screen.components.PasswordTextField
 import com.sanchelo.dummy.presentation.login_screen.screen.components.RememberMeButton
-
-
-object Paddings{
-    val small = 8.dp
-}
-
-private const val ROUNDED_CARD_RADIUS = 36
-
 
 @Composable
 fun LoginScreen(
@@ -88,78 +81,6 @@ fun LoginScreen(
 
         }
 
-    }
-}
-
-
-@Composable
-fun LoginCard(
-    loginValue: String,
-    onLoginValueChange: (String) -> Unit,
-    loginErrorStatus: Boolean,
-    passwordValue: String,
-    onPasswordValueChange: (String) -> Unit,
-    passwordErrorStatus: Boolean,
-    onLoginButtonClicked: () -> Unit
-) {
-    LoginCardAnimation {
-        Card(
-            colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surface),
-            shape = RoundedCornerShape(
-                topStart = ROUNDED_CARD_RADIUS.dp,
-                topEnd = ROUNDED_CARD_RADIUS.dp
-            )
-        ) {
-            Column(
-                Modifier
-                    .padding(top = 12.dp, start = 12.dp, end = 12.dp)
-                    .fillMaxWidth()
-                    .navigationBarsPadding(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                LoginText()
-
-                Spacer(modifier = Modifier.height(10.dp))
-
-                LoginTextField(
-                    labelValue = "Username",
-                    value = loginValue,
-                    onValueChange = { onLoginValueChange(it) },
-                    errorStatus = loginErrorStatus
-                )
-
-                Spacer(modifier = Modifier.height(10.dp))
-
-                PasswordTextField(
-                    labelValue = "Password",
-                    value = passwordValue,
-                    onValueChange = { onPasswordValueChange(it) },
-                    errorStatus = passwordErrorStatus
-                )
-
-                Spacer(modifier = Modifier.height(10.dp))
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 12.dp, end = 12.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    RememberMeButton()
-                    ForgetPasswordButton()
-                }
-
-                LoginButton(
-                    label = "Login",
-                    isLoginButtonEnabled = true,
-                    onLoginButtonClicked = {
-                        onLoginButtonClicked()
-                        //navigateToMainScreen()
-                    }
-                )
-            }
-        }
     }
 }
 
