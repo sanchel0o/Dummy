@@ -8,5 +8,5 @@ import com.sanchelo.dummy.domain.model.UserData
 interface DummyRemoteRepository {
     suspend fun getProductsData(): List<ProductData>
     suspend fun getPost(): PostData
-    suspend fun authRequest(): UserData
+    suspend fun authRequest(username: String, password: String): UserData
 }

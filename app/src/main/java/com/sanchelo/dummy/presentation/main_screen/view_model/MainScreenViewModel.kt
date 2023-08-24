@@ -147,16 +147,9 @@ class MainScreenViewModel @Inject constructor(
         }
     }
 
-    private fun auth() {
-        viewModelScope.launch {
-            val result = repository.authRequest()
-        }
-    }
-
     init {
         getProductsData()
         getPostData()
-        auth()
         Log.e("AAA", "VM Created!")
     }
 

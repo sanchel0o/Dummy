@@ -24,7 +24,8 @@ class DummyRemoteRepositoryImpl @Inject constructor(
         return api.getPost(id).toPostData()
     }
 
-    override suspend fun authRequest(): UserData =
-        api.authRequest(AuthRequest("kminchelle", "0lelplR")).toUserData()
+    override suspend fun authRequest(username: String, password: String): UserData {
+        return api.authRequest(AuthRequest(username,password)).toUserData()
+    }
 
 }

@@ -1,7 +1,9 @@
 package com.sanchelo.dummy.presentation.core
 
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.TileMode
 
 
 //Light Color Scheme
@@ -16,6 +18,7 @@ val tertiaryLight = Color(0xFF006B5E)
 val tertiaryContainerLight = Color(0xFF76F8E1)
 val onTertiaryContainerLight = Color(0xFF00201B)
 val onSurfaceLight = Color(0xFF0B2447)
+val onSurfaceVariantLight = Color(0xFF576CBC)
 val outlineLight = Color(0xFFC0C9CC)
 val surfaceLight = Color(0xFFFFFBFE)
 
@@ -43,8 +46,16 @@ val VioletBlue = Color(0xFF576CBC)
 
 
 //Gradient colors
-val backgroundGradientLight = Brush.linearGradient(listOf(primaryLight, secondaryLight, tertiaryLight))
-val backgroundGradientDark = Brush.linearGradient(listOf(primaryDark, secondaryDark, tertiaryDark))
-val loginButtonGradientColor = ""
-val loginTextGradienColor = Brush.linearGradient(listOf(primaryLight, VioletBlue, tertiaryDark))
+val backgroundGradientLight = Brush.linearGradient(
+    colors = listOf(primaryLight, VioletBlue, tertiaryLight),
+    start = Offset.Zero,
+    end = Offset.Infinite,
+    tileMode = TileMode.Clamp
+)
+
+val backgroundGradientDark = Brush.linearGradient(listOf(secondaryDark, VioletBlue, tertiaryDark))
+
+//val loginButtonGradientColor = Brush.linearGradient(listOf(primaryLight, VioletBlue, tertiaryDark))
+
+val loginTextGradientColor = Brush.linearGradient(listOf(primaryLight, VioletBlue, tertiaryDark))
 

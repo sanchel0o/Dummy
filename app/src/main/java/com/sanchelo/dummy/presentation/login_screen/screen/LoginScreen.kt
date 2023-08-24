@@ -54,7 +54,7 @@ fun LoginScreen(
                     )
                 },
                 passwordErrorStatus = false,
-                onLoginButtonClicked = { }
+                onLoginButtonClicked = { viewModel.onEvent(LoginScreenEvents.OnLoginClick) }
             )
         }
     }
