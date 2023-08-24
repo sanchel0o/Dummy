@@ -1,6 +1,5 @@
 package com.sanchelo.dummy.presentation.login_screen.screen
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.sanchelo.dummy.presentation.login_screen.LoginScreenViewModel
 import com.sanchelo.dummy.presentation.login_screen.LoginScreenEvents
+import com.sanchelo.dummy.presentation.login_screen.LoginScreenViewModel
 import com.sanchelo.dummy.presentation.login_screen.screen.components.DummyImage
 import com.sanchelo.dummy.presentation.login_screen.screen.components.GradientBackground
 import com.sanchelo.dummy.presentation.login_screen.screen.components.LoginCard
@@ -34,15 +33,12 @@ fun LoginScreen(
                 .wrapContentSize(Alignment.Center)
                 .imePadding(),
         ) {
-
-            Box(
+            DummyImage(
                 modifier = Modifier
                     .weight(1f)
-                    .fillMaxWidth(),
-                contentAlignment = Alignment.Center
-            ) {
-                DummyImage()
-            }
+                    .fillMaxWidth()
+            )
+
             LoginCard(
                 loginValue = state.login,
                 onLoginValueChange = {
@@ -60,9 +56,7 @@ fun LoginScreen(
                 passwordErrorStatus = false,
                 onLoginButtonClicked = { }
             )
-
         }
-
     }
 }
 
