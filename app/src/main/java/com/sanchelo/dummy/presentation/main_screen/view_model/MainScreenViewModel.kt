@@ -3,10 +3,9 @@ package com.sanchelo.dummy.presentation.main_screen.view_model
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.ktx.Firebase
 import com.sanchelo.dummy.domain.repository.DummyRemoteRepository
 import com.sanchelo.dummy.domain.use_cases.GetProductDataUseCase
-import com.sanchelo.dummy.presentation.main_screen.events.MainScreenEvents
+import com.sanchelo.dummy.presentation.main_screen.MainScreenEvents
 import com.sanchelo.dummy.presentation.main_screen.states.PostCardState
 import com.sanchelo.dummy.presentation.main_screen.states.ProductCardState
 import dagger.hilt.android.lifecycle.HiltViewModel

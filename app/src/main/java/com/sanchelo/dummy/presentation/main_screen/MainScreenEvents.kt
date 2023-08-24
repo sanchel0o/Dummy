@@ -1,4 +1,4 @@
-package com.sanchelo.dummy.presentation.main_screen.events
+package com.sanchelo.dummy.presentation.main_screen
 
 sealed class MainScreenEvents {
     data class CardClick(val id: Int): MainScreenEvents()

@@ -9,6 +9,7 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -20,11 +21,12 @@ import androidx.compose.ui.graphics.Color
 
 @Composable
 fun LoginCardAnimation(
+    visibleStatus: Boolean = false,
     content: @Composable () -> Unit
 ) {
 
     var visible by remember {
-        mutableStateOf(false)
+        mutableStateOf(visibleStatus)
     }
     LaunchedEffect(key1 = visible) {
         visible = true
@@ -41,8 +43,29 @@ fun LoginCardAnimation(
 }
 
 @Composable
-fun AnimateImage() {
+fun DummyImageAnimation(
+    visibleStatus: Boolean = false,
+    content: @Composable () -> Unit
+) {
 
+    var visible by remember {
+        mutableStateOf(visibleStatus)
+    }
+
+    LaunchedEffect(key1 = visible) {
+        visible = true
+    }
+
+    AnimatedVisibility(
+        visible = visible,
+        enter = slideInVertically(
+            animationSpec = spring(dampingRatio = 0.2f, stiffness = 100f),
+            //initialOffsetY = { fullHeight -> fullHeight / 2 }
+        ) + fadeIn(),
+        exit = fadeOut(),
+    ) {
+        content()
+    }
 }
 
 @Composable

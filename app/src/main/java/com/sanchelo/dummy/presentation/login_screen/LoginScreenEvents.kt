@@ -1,4 +1,4 @@
-package com.sanchelo.dummy.presentation.login_screen.events
+package com.sanchelo.dummy.presentation.login_screen
 
 sealed class LoginScreenEvents {
     data object OnLoginClick: LoginScreenEvents()

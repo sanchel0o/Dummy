@@ -1,7 +1,6 @@
 package com.sanchelo.dummy.presentation.login_screen
 
 import androidx.lifecycle.ViewModel
-import com.sanchelo.dummy.presentation.login_screen.events.LoginScreenEvents
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
