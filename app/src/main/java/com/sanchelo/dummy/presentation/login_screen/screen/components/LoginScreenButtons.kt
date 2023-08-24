@@ -27,8 +27,9 @@ fun RememberMeButton() {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Checkbox(
+            modifier = Modifier,
             colors = CheckboxDefaults.colors(
-                checkedColor = MaterialTheme.colorScheme.primary,
+                checkedColor = VioletBlue,
                 uncheckedColor = VioletBlue
             ),
             checked = false,

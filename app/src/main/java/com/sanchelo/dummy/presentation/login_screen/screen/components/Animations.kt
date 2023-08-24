@@ -24,7 +24,7 @@ fun LoginCardAnimation(
 ) {
 
     var visible by remember {
-        mutableStateOf(true)
+        mutableStateOf(false)
     }
     LaunchedEffect(key1 = visible) {
         visible = true

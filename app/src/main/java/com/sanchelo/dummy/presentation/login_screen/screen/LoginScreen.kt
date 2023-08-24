@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -37,6 +36,14 @@ import com.sanchelo.dummy.presentation.login_screen.screen.components.LoginTextF
 import com.sanchelo.dummy.presentation.login_screen.screen.components.PasswordTextField
 import com.sanchelo.dummy.presentation.login_screen.screen.components.RememberMeButton
 
+
+object Paddings{
+    val small = 8.dp
+}
+
+private const val ROUNDED_CARD_RADIUS = 36
+
+
 @Composable
 fun LoginScreen(
     //navigateToMainScreen: () -> Unit
@@ -46,100 +53,114 @@ fun LoginScreen(
     val state by viewModel.loginScreenState.collectAsStateWithLifecycle()
 
     GradientBackground {
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
+                .wrapContentSize(Alignment.Center)
                 .imePadding(),
         ) {
-            Column(
+
+            Box(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .wrapContentSize(Alignment.Center),
+                    .weight(1f)
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.Center
             ) {
-
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    //DummyImage()
-                }
-
-                LoginCardAnimation {
-                    Card(
-                        modifier = Modifier,
-                        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surface),
-                        shape = RoundedCornerShape(topStart = 36.dp, topEnd = 36.dp)
-                    ) {
-                        Column(
-                            Modifier
-                                .padding(top = 12.dp, start = 12.dp, end = 12.dp)
-                                .fillMaxWidth(),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            LoginText()
-
-                            Spacer(modifier = Modifier.height(10.dp))
-
-                            LoginTextField(
-                                labelValue = "Username",
-                                value = state.login,
-                                onValueChange = {
-                                    viewModel.onEvent(
-                                        LoginScreenEvents.OnLoginChanged(login = it)
-                                    )
-                                },
-                                errorStatus = false
-                            )
-
-                            Spacer(modifier = Modifier.height(10.dp))
-
-                            PasswordTextField(
-                                labelValue = "Password",
-                                value = state.password,
-                                onValueChange = {
-                                    viewModel.onEvent(
-                                        LoginScreenEvents.OnPasswordChanged(password = it)
-                                    )
-                                },
-                                errorStatus = false
-                            )
-
-                            Spacer(modifier = Modifier.height(10.dp))
-
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(start = 12.dp, end = 12.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.SpaceBetween
-                            ) {
-                                RememberMeButton()
-                                ForgetPasswordButton()
-                            }
-                            Column(
-                                modifier = Modifier.fillMaxWidth().navigationBarsPadding()
-                            ) {
-                                LoginButton(
-                                    label = "Login",
-                                    isLoginButtonEnabled = true,
-                                    onLoginButtonClicked = {
-                                        //navigateToMainScreen()
-                                    }
-                                )
-                            }
-                        }
-                    }
-                }
+                DummyImage()
             }
+            LoginCard(
+                loginValue = state.login,
+                onLoginValueChange = {
+                    viewModel.onEvent(
+                        LoginScreenEvents.OnLoginChanged(login = it)
+                    )
+                },
+                loginErrorStatus = false,
+                passwordValue = state.password,
+                onPasswordValueChange = {
+                    viewModel.onEvent(
+                        LoginScreenEvents.OnPasswordChanged(password = it)
+                    )
+                },
+                passwordErrorStatus = false,
+                onLoginButtonClicked = { }
+            )
+
         }
+
     }
 }
 
 
 @Composable
-fun LoginCard() {
+fun LoginCard(
+    loginValue: String,
+    onLoginValueChange: (String) -> Unit,
+    loginErrorStatus: Boolean,
+    passwordValue: String,
+    onPasswordValueChange: (String) -> Unit,
+    passwordErrorStatus: Boolean,
+    onLoginButtonClicked: () -> Unit
+) {
+    LoginCardAnimation {
+        Card(
+            colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surface),
+            shape = RoundedCornerShape(
+                topStart = ROUNDED_CARD_RADIUS.dp,
+                topEnd = ROUNDED_CARD_RADIUS.dp
+            )
+        ) {
+            Column(
+                Modifier
+                    .padding(top = 12.dp, start = 12.dp, end = 12.dp)
+                    .fillMaxWidth()
+                    .navigationBarsPadding(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                LoginText()
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                LoginTextField(
+                    labelValue = "Username",
+                    value = loginValue,
+                    onValueChange = { onLoginValueChange(it) },
+                    errorStatus = loginErrorStatus
+                )
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                PasswordTextField(
+                    labelValue = "Password",
+                    value = passwordValue,
+                    onValueChange = { onPasswordValueChange(it) },
+                    errorStatus = passwordErrorStatus
+                )
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 12.dp, end = 12.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    RememberMeButton()
+                    ForgetPasswordButton()
+                }
+
+                LoginButton(
+                    label = "Login",
+                    isLoginButtonEnabled = true,
+                    onLoginButtonClicked = {
+                        onLoginButtonClicked()
+                        //navigateToMainScreen()
+                    }
+                )
+            }
+        }
+    }
 }
 
 @Preview(showBackground = true)
