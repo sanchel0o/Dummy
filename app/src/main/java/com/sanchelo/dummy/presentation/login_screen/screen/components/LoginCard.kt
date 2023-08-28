@@ -25,7 +25,9 @@ fun LoginCard(
     passwordValue: String,
     onPasswordValueChange: (String) -> Unit,
     passwordErrorStatus: Boolean,
-    onLoginButtonClicked: () -> Unit
+    onLoginButtonClicked: () -> Unit,
+    rememberMeChecked: Boolean,
+    rememberMeCheckedChange: () -> Unit
 ) {
     LoginCardAnimation {
         Card(
@@ -71,7 +73,7 @@ fun LoginCard(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    RememberMeButton()
+                    RememberMeButton(rememberMeChecked, rememberMeCheckedChange )
                     ForgetPasswordButton()
                 }
 

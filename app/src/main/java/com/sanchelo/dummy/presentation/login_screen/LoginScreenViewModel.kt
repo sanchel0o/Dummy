@@ -3,8 +3,9 @@ package com.sanchelo.dummy.presentation.login_screen
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sanchelo.dummy.auth.AuthRequest
 import com.sanchelo.dummy.domain.repository.DummyRemoteRepository
+import com.sanchelo.dummy.presentation.login_screen.events.LoginScreenEvents
+import com.sanchelo.dummy.presentation.login_screen.state.LoginScreenState
 import com.sanchelo.dummy.presentation.login_screen.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -49,6 +50,14 @@ class LoginScreenViewModel @Inject constructor(
                         )
                         Log.e("AAA", ex.message.toString())
                     }
+                }
+            }
+
+            is LoginScreenEvents.OnRememberMeCheckedChange -> {
+                viewModelScope.launch {
+                    _loginScreenState.value = _loginScreenState.value.copy(
+                        rememberMeChecked = !_loginScreenState.value.rememberMeChecked
+                    )
                 }
             }
         }

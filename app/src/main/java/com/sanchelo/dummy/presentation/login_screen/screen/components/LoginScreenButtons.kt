@@ -1,5 +1,6 @@
 package com.sanchelo.dummy.presentation.login_screen.screen.components
 
+import androidx.compose.foundation.indication
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,7 +23,10 @@ import androidx.compose.ui.unit.dp
 import com.sanchelo.dummy.presentation.core.VioletBlue
 
 @Composable
-fun RememberMeButton() {
+fun RememberMeButton(
+    checked: Boolean,
+    onCheckedChange: () -> Unit
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -32,8 +36,8 @@ fun RememberMeButton() {
                 checkedColor = VioletBlue,
                 uncheckedColor = VioletBlue
             ),
-            checked = false,
-            onCheckedChange = {},
+            checked = checked,
+            onCheckedChange = { onCheckedChange() },
         )
         Text(
             style = TextStyle(
@@ -65,7 +69,8 @@ fun LoginButton(
 @Composable
 fun ForgetPasswordButton() {
     TextButton(
-        onClick = {}
+        modifier = Modifier,
+        onClick = {  }
     ) {
         Text(text = "Forget password?")
     }

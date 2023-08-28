@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.sanchelo.dummy.presentation.login_screen.LoginScreenEvents
+import com.sanchelo.dummy.presentation.login_screen.events.LoginScreenEvents
 import com.sanchelo.dummy.presentation.login_screen.LoginScreenViewModel
 import com.sanchelo.dummy.presentation.login_screen.screen.components.DummyImage
 import com.sanchelo.dummy.presentation.login_screen.screen.components.GradientBackground
@@ -54,7 +54,9 @@ fun LoginScreen(
                     )
                 },
                 passwordErrorStatus = false,
-                onLoginButtonClicked = { viewModel.onEvent(LoginScreenEvents.OnLoginClick) }
+                onLoginButtonClicked = { viewModel.onEvent(LoginScreenEvents.OnLoginClick) },
+                rememberMeChecked = state.rememberMeChecked,
+                rememberMeCheckedChange = { viewModel.onEvent(LoginScreenEvents.OnRememberMeCheckedChange) }
             )
         }
     }

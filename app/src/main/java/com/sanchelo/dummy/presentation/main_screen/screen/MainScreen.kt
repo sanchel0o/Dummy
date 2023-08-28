@@ -17,12 +17,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.sanchelo.dummy.presentation.main_screen.MainScreenEvents
+import com.sanchelo.dummy.presentation.main_screen.events.MainScreenEvents
 import com.sanchelo.dummy.presentation.main_screen.screen.components.LoadingScreen
 import com.sanchelo.dummy.presentation.main_screen.screen.components.PostCard
 import com.sanchelo.dummy.presentation.main_screen.screen.components.ProductCard
 import com.sanchelo.dummy.presentation.main_screen.screen.components.SearchButton
-import com.sanchelo.dummy.presentation.main_screen.view_model.MainScreenViewModel
+import com.sanchelo.dummy.presentation.main_screen.MainScreenViewModel
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
