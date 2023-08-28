@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -106,14 +107,16 @@ class MainScreenViewModel @Inject constructor(
         viewModelScope.launch {
             with (_postCardState) {
                 value = value.copy(
-                    postData = null,
-                    isLoading = true,
+                    isLoading = true
                 )
 
                 val post = try {
                     repository.getPost()
                 } catch (e: Exception) {
-                    value = value.copy(isLoading = false)
+                    value = value.copy(
+                        postData = null,
+                        isLoading = false
+                    )
                     null
                 }
 
@@ -137,7 +140,14 @@ class MainScreenViewModel @Inject constructor(
                     repository.getProductsData()
                 } catch (e: Exception) {
                     emptyList()
+                } catch (e: HttpException) {
+                    Log.e("AAA", "HTTP error occurred with status code: ${e.code()}")
+                    emptyList()
                 }
+//                    value = value.copy(
+//                        isLoading = false,
+//                        error = "HTTP error occurred with status code: ${e.code()}"
+//                }
 
                 value = _productCardState.value.copy(
                     productData = products,

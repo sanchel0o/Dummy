@@ -6,7 +6,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
-import androidx.lifecycle.lifecycleScope
 import com.sanchelo.dummy.presentation.core.DummyTheme
 import com.sanchelo.dummy.presentation.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint

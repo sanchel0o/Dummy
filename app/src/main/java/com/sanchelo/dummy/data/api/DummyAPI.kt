@@ -19,5 +19,3 @@ interface DummyAPI{
     @POST("/auth/login")
     suspend fun authRequest(@Body authRequest: AuthRequest): UserDto
 }
-
-

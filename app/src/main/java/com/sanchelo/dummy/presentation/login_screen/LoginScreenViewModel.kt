@@ -6,11 +6,11 @@ import androidx.lifecycle.viewModelScope
 import com.sanchelo.dummy.domain.repository.DummyRemoteRepository
 import com.sanchelo.dummy.presentation.login_screen.events.LoginScreenEvents
 import com.sanchelo.dummy.presentation.login_screen.state.LoginScreenState
-import com.sanchelo.dummy.presentation.login_screen.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
@@ -39,32 +39,25 @@ class LoginScreenViewModel @Inject constructor(
             is LoginScreenEvents.OnLoginClick -> {
                 val username = _loginScreenState.value.login
                 val password = _loginScreenState.value.password
+
                 viewModelScope.launch {
-                    try {
-                        val result = repository.authRequest(username, password)
-                        Resource.Success(userData = result)
+                    val result = try {
+                        repository.authRequest(username, password)
                     } catch (ex: IOException) {
-                        Resource.Error(
-                            message = "Error!!! ${ ex.message }",
-                            cause = ex
-                        )
                         Log.e("AAA", ex.message.toString())
+                        null
+                    } catch (e: HttpException) {
+                        Log.e("AAA", "HTTP error occurred with status code: ${e.code()}")
+                        null
                     }
                 }
             }
 
             is LoginScreenEvents.OnRememberMeCheckedChange -> {
-                viewModelScope.launch {
-                    _loginScreenState.value = _loginScreenState.value.copy(
-                        rememberMeChecked = !_loginScreenState.value.rememberMeChecked
-                    )
-                }
+                _loginScreenState.value = _loginScreenState.value.copy(
+                    rememberMeChecked = !_loginScreenState.value.rememberMeChecked
+                )
             }
         }
     }
-
-    init {
-
-    }
-
 }
