@@ -55,10 +55,10 @@ fun NavGraphBuilder.authNavGraph(navHostController: NavHostController) {
     ) {
         composable(route = AuthScreens.LoginScreen.route) {
             LoginScreen(
-//                navigateToMainScreen = {
-//                    navHostController.popBackStack()
-//                    navHostController.navigate(Graph.MAIN)
-//                }
+                navigateToMainScreen = {
+                    navHostController.popBackStack()
+                    navHostController.navigate(Graph.MAIN)
+                }
             )
         }
     }

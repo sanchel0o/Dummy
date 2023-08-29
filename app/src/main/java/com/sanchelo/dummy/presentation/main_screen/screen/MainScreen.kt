@@ -1,5 +1,6 @@
 package com.sanchelo.dummy.presentation.main_screen.screen
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,6 +24,7 @@ import com.sanchelo.dummy.presentation.main_screen.screen.components.PostCard
 import com.sanchelo.dummy.presentation.main_screen.screen.components.ProductCard
 import com.sanchelo.dummy.presentation.main_screen.screen.components.SearchButton
 import com.sanchelo.dummy.presentation.main_screen.MainScreenViewModel
+import com.sanchelo.dummy.presentation.main_screen.screen.components.ProductCardAnimation
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
@@ -52,51 +54,53 @@ fun MainScreen(
                     scrollBehavior = topAppBarScrollBehavior
                 )
             }) { values ->
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .consumeWindowInsets(values),
-                contentPadding = values
-            ) {
-                item {
-                    PostCard(
-                        title = postCardState.postData?.title ?: "No post",
-                        body = postCardState.postData?.body ?: "Post body",
-                        reactions = postCardState.postData?.reactions ?: 0,
-                        tags = postCardState.postData?.tags ?: emptyList(),
-                        onLikeClick = { viewModel.onEvent(MainScreenEvents.ReactionClick) },
-                        checkedStatus = postCardState.isLikeChecked,
-                        onExpandClick = { viewModel.onEvent(MainScreenEvents.ExpandPostCardClick) },
-                        expandState = postCardState.expanded
-                    )
-                }
-                itemsIndexed(
-                    items = productCardState.productData
-                ) { index, item ->
-                    ProductCard(
-                        cardId = item.id,
-                        title = item.title,
-                        brand = item.brand,
-                        imageUrl = item.images[0],
-                        price = item.price,
-                        description = item.description,
-                        onCardClicked = {
-                            navigateToDetailScreen()
-                            viewModel.onEvent(MainScreenEvents.CardClick(item.id))
-                        },
-                        favoritesCheckedStatus = productCardState.isAddToFavoritesChecked.contains(
-                            item.id
-                        ),
-                        onAddToFavoritesClick = {
-                            viewModel.onEvent(
-                                MainScreenEvents.AddToFavorites(
-                                    item.id
+            ProductCardAnimation(visibleStatus = false) {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .consumeWindowInsets(values),
+                    contentPadding = values
+                ) {
+                    item {
+                        PostCard(
+                            title = postCardState.postData?.title ?: "No post",
+                            body = postCardState.postData?.body ?: "Post body",
+                            reactions = postCardState.postData?.reactions ?: 0,
+                            tags = postCardState.postData?.tags ?: emptyList(),
+                            onLikeClick = { viewModel.onEvent(MainScreenEvents.ReactionClick) },
+                            checkedStatus = postCardState.isLikeChecked,
+                            onExpandClick = { viewModel.onEvent(MainScreenEvents.ExpandPostCardClick) },
+                            expandState = postCardState.expanded
+                        )
+                    }
+                    itemsIndexed(
+                        items = productCardState.productData
+                    ) { index, item ->
+                        ProductCard(
+                            cardId = item.id,
+                            title = item.title,
+                            brand = item.brand,
+                            imageUrl = item.images[0],
+                            price = item.price,
+                            description = item.description,
+                            onCardClicked = {
+                                navigateToDetailScreen()
+                                viewModel.onEvent(MainScreenEvents.CardClick(item.id))
+                            },
+                            favoritesCheckedStatus = productCardState.isAddToFavoritesChecked.contains(
+                                item.id
+                            ),
+                            onAddToFavoritesClick = {
+                                viewModel.onEvent(
+                                    MainScreenEvents.AddToFavorites(
+                                        item.id
+                                    )
                                 )
-                            )
-                        },
-                        cartCheckedStatus = productCardState.isAddToCartChecked.contains(item.id),
-                        onAddToCartClick = { viewModel.onEvent(MainScreenEvents.AddToCart(item.id)) }
-                    )
+                            },
+                            cartCheckedStatus = productCardState.isAddToCartChecked.contains(item.id),
+                            onAddToCartClick = { viewModel.onEvent(MainScreenEvents.AddToCart(item.id)) }
+                        )
+                    }
                 }
             }
         }

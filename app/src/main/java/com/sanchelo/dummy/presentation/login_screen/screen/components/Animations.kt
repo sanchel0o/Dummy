@@ -34,7 +34,7 @@ fun LoginCardAnimation(
     AnimatedVisibility(
         visible = visible,
         enter = slideInVertically(
-            animationSpec = spring( dampingRatio = 0.8f, stiffness = 100f),
+            animationSpec = spring(dampingRatio = 0.8f, stiffness = 100f),
             initialOffsetY = { fullHeight -> fullHeight }
         ) + fadeIn()
     ) {
