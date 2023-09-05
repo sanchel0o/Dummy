@@ -19,7 +19,6 @@ import com.sanchelo.dummy.presentation.main_screen.screen.components.FilterButto
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-
 fun DetailScreen(
     navigateBack: () -> Unit,
 ) {

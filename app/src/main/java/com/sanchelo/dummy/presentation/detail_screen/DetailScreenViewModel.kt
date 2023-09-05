@@ -6,7 +6,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailScreenViewModel @Inject constructor(): ViewModel() {
+class DetailScreenViewModel @Inject constructor(
+): ViewModel() {
 
     init {
         Log.e("AAA", "VMD created!!")
